@@ -4,3 +4,13 @@ struct TpAlunos{
     TpAlunos *Ant,*Prox;
 };
 
+struct TpDescritor{
+    int Qtde;
+    TpAlunos *Inicio,*Fim;
+};
+
+struct TpNotas{
+    char Materia[20];
+    int Nota0, Nota2, Frequencia;
+    TpAlunos *Prox;
+};
