@@ -60,8 +60,7 @@ TpAlunos *NovaCaixa(char Nome[]){
     gets(aux);
     strcpy(Caixa->Estado,aux);
     printf("\nDigite o Endereco: ");
-    gets(aux);
-    strcpy(Caixa->Endereco,aux);
+    scanf("%d",&Caixa->Endereco);
 
     Caixa->Prox = Caixa->Ant = NULL;
 	return Caixa;  
@@ -115,7 +114,7 @@ void exibirAlunos(TpDescritorA TpDesc) {
         printf("%s\n",lista -> Rua);
         printf("%s\n",lista -> Bairro);
         printf("%s\n",lista -> Cidade);
-        printf("%s\n",lista -> Endereco);
+        printf("%d\n",lista -> Endereco);
 		lista = lista -> prox;
 	}
 	getch();
