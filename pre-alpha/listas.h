@@ -32,7 +32,7 @@ struct TpDescritorA{
 
 void IniciarDescA(TpDescritorA &DescA);
 
-//INICIO DOS DESCRITORES
+//INICIO DOS DESCRITOR
 void IniciarDescA(TpDescritorA &DescA){
     DescA.Inicio = DescA.Fim = NULL;
     DescA.Qtde = 0;
@@ -43,7 +43,7 @@ TpAlunos *NovaCaixa(char Nome[]){
 	TpAlunos *Caixa = new TpAlunos;
     char aux[30];
 
-	strcpy(Caixa->Nome, Nome[30]);
+	strcpy(Caixa->Nome, Nome);
     printf("\nDigite o Curso: ");
     gets(aux);
     strcpy(Caixa->Curso,aux);
@@ -62,44 +62,61 @@ TpAlunos *NovaCaixa(char Nome[]){
     printf("\nDigite o Endereco: ");
     gets(aux);
     strcpy(Caixa->Endereco,aux);
-    printf("\nDigite o Ano");
 
     Caixa->Prox = Caixa->Ant = NULL;
 	return Caixa;  
 }
 
-TpAlunos *AdcionarAlunos(TpAlunos *Lista,char Nome[]){
-    TpAlunos *NC = NovaCaixa(Nome), *ant , *atual;
+void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
+    TpAlunos *NC = NovaCaixa(Nome), *P;
 	Desc.Qtde++;
-	if(Desc.Inicio==NULL){
-		Desc.Inicio=Desc.Fim=NC;
-	}
+
+    if(Lista == NULL){ //Lista Vazia
+        Lista = NC;
+    }
 	else{
-		if(Desc.Inicio->Info >= Elem){
-			NC->prox = Desc.Inicio;
-			Desc.Inicio = NC;
-		}
-		else{
-			if(Desc.Fim->Info <= Elem){
-				Desc.Fim->prox = NC;
-				Desc.Fim = NC;
-			}
-			else{
-				atual = Desc.Inicio;
-				atual = Desc.Inicio->prox;
-				
-				while(atual->Info < Elem){
-					ant = atual;
-					atual = atual->prox;
-				}
-					
-				NC->prox = atual;
-				ant->prox = NC;
-			}
-		}
-	}
-    return Lista;
+        if(strcmp(NC->Nome,Lista->Nome) > 0 ){//Inicio
+            NC -> Prox = Desc.Inicio;
+            Desc.Inicio -> Ant = NC;
+            Desc.Inicio = NC;
+        }
+        else{//Ultimo
+            if(strcmp(NC->Nome,Lista->Nome) < 0 ){
+                NC -> Ant = Desc.Fim;
+                Desc.Fim -> Prox = NC;
+                Desc.Fim = NC;
+            }
+            else{//meio
+                    P = Desc.Inicio -> Prox;
+                    while(P -> Prox != NULL && strcmp(P -> Nome,NC -> Nome) < 0) {
+                        P = P -> P;
+                    }
+                    NC -> Prox = P;
+                    NC -> Ant = P-> Ant;
+                    P -> Ant -> Prox = NC;
+                    P -> Ant = NC;
+                }
+        }
+    }
 }
 
 
 //NOTAS
+
+
+
+//Exibir Alunos
+
+void exibirAlunos(TpDescritorA TpDesc) {
+	TpAlunos *lista = Desc.Inicio;
+	while(lista != NULL) {
+		printf("%s\n",lista -> Nome);
+        printf("%s\n",lista -> Curso);
+        printf("%s\n",lista -> Rua);
+        printf("%s\n",lista -> Bairro);
+        printf("%s\n",lista -> Cidade);
+        printf("%s\n",lista -> Endereco);
+		lista = lista -> prox;
+	}
+	getch();
+}
