@@ -2,11 +2,6 @@
 // #   STRUCTS E FUNCOES PARA MANIPULACAO DAS LISTAS                    #
 // ######################################################################
 
-#include <conio2.h>
-#include <time.h>
-#include <string.h>
-#include <stdio.h>
-#include <stdlib.h
 
 struct TpNotas{
     char Materia[20];
