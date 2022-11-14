@@ -86,6 +86,7 @@ TpAlunos *NovaCaixa(char Nome[]){
 	return Caixa;  
 }
 
+
 //Adciona alunos
 void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
     TpAlunos *NC = NovaCaixa(Nome), *P;
@@ -95,29 +96,28 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
         Desc.Inicio = Desc.Fim = NC;
     }
 	else if(strcmp(Desc.Inicio->Nome,NC->Nome) > 0 ){//Inicio
-            NC -> Prox = Desc.Inicio;
-            Desc.Inicio -> Ant = NC;
-            Desc.Inicio = NC;
+        NC -> Prox = Desc.Inicio;
+        Desc.Inicio -> Ant = NC;
+        Desc.Inicio = NC;
     }
     else if(strcmp(Desc.Fim->Nome,NC->Nome) < 0 ){//Ultimo
-                NC -> Ant = Desc.Fim;
-                Desc.Fim -> Prox = NC;
-                Desc.Fim = NC;
+        NC -> Ant = Desc.Fim;
+        Desc.Fim -> Prox = NC;
+        Desc.Fim = NC;
     }
     else{//meio
-                   P = Desc.Inicio -> Prox;
-                    while(P -> Prox != NULL && strcmp(P -> Nome,NC -> Nome) < 0) {
-                        P = P -> Prox;
-                    }
-                    NC -> Prox = P;
-                    NC -> Ant = P-> Ant;
-                    P -> Ant -> Prox = NC;
-                    P -> Ant = NC;
+       	P = Desc.Inicio -> Prox;
+       	while(P -> Prox != NULL && strcmp(P -> Nome,NC -> Nome) < 0) {
+            P = P -> Prox;
+		}
+	    NC -> Prox = P;
+	    NC -> Ant = P-> Ant;
+	    P -> Ant -> Prox = NC;
+	    P -> Ant = NC;
     }
 }
     
-
-
+    
 
 //NOTAS
 
