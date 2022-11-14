@@ -1,0 +1,31 @@
+Daniel Elias Fonseca Rumin
+Ciencia da Computacao
+Alfredo Marcondes 
+Benak 
+Estrada Municipal
+Sao Paulo
+3
+
+Ana Laura Angelosi Cruz
+Ciencia da Computacao
+Martinopolis
+Sei la
+Estrada Teste
+Sao Paulo
+545
+
+Thales Jorge 
+Ciencia da Computacao
+Rancharia
+corno
+Estrada fds
+Sao Paulo
+886
+
+Bruno Da Massa
+Educacao Fisica
+Bauru
+Teste
+Estrada Bd
+Amanzonas
+1212

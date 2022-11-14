@@ -38,9 +38,30 @@ void IniciarDescA(TpDescritorA &DescA){
 }
 
 //ALUNOS
+
+//BUSCA ALUNOS
+TpAlunos BuscarAlunos(char Nome[], TpDescritorA Desc) {
+	TpAlunos reg, *lista;
+	
+	strcpy(reg.Nome,"");
+	lista = Desc.Inicio;
+	
+	while(lista != NULL && strcmp(Nome,lista -> Nome) != 0) {
+		lista = lista -> Prox;
+	}
+	
+	if(lista != NULL) {
+		reg = *lista;
+	}
+	
+	return reg;
+}
+
+//CRIA NOVA CAIXA 
 TpAlunos *NovaCaixa(char Nome[]){
 	TpAlunos *Caixa = new TpAlunos;
     char aux[30];
+	
 
 	strcpy(Caixa->Nome, Nome);
     printf("\nDigite o Curso: ");
@@ -65,6 +86,7 @@ TpAlunos *NovaCaixa(char Nome[]){
 	return Caixa;  
 }
 
+//Adciona alunos
 void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
     TpAlunos *NC = NovaCaixa(Nome), *P;
 	Desc.Qtde++;

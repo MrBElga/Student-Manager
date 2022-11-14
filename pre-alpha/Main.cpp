@@ -24,12 +24,14 @@ char Menu ()
 
 int main(void){
 	TpDescritorA DescA;
-	TpAlunos ListaA;
-	TpNotas	 ListaN;
+	TpAlunos ListaA,Reg;
+	
+	
 
 	char op,aux[30];
 
 	IniciarDescA(DescA);
+
 	//VerificarArquivo(DescA);
 	
 	do{
@@ -41,8 +43,14 @@ int main(void){
 			case 'A': 
 				system("cls");
 				printf("\n## CADASTRO DE ALUNOS ##\n");
-				printf("Digite o Nome do Aluno: ");
+				printf("Digite o Nome do Aluno: ");fflush(stdin);
 				gets(aux);
+				Reg = BuscarAlunos(aux,DescA);
+				while(strcmp(aux,Reg.Nome)==0){
+					printf("Digite o Nome do Aluno: ");
+					gets(aux);
+					Reg = BuscarAlunos(aux,DescA);
+				}
 				AdcionarAlunos(ListaA, DescA, aux);
 			break;
 			case 'E':
