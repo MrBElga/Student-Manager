@@ -82,7 +82,7 @@ TpAlunos *NovaCaixa(char Nome[]){
     printf("\nDigite o Endereco: ");
     scanf("%d",&Caixa->Endereco);
 
-    Caixa->Prox = Caixa->Ant = NULL;
+    Caixa -> Prox = Caixa -> Ant = NULL;
 	return Caixa;  
 }
 
@@ -91,15 +91,15 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
     TpAlunos *NC = NovaCaixa(Nome), *P;
 	Desc.Qtde++;
 
-    if(Desc.Inicio == NULL){ //Lista Vazia
+    if(Desc.Inicio == NULL){//Lista Vazia
         Desc.Inicio = Desc.Fim = NC;
     }
-	else if(strcmp(NC->Nome,Desc.Inicio->Nome) > 0 ){//Inicio
+	else if(strcmp(Desc.Inicio->Nome,NC->Nome) > 0 ){//Inicio
             NC -> Prox = Desc.Inicio;
             Desc.Inicio -> Ant = NC;
             Desc.Inicio = NC;
     }
-    else if(strcmp(NC->Nome,Desc.Fim->Nome) < 0 ){//Ultimo
+    else if(strcmp(Desc.Fim->Nome,NC->Nome) < 0 ){//Ultimo
                 NC -> Ant = Desc.Fim;
                 Desc.Fim -> Prox = NC;
                 Desc.Fim = NC;
