@@ -49,7 +49,7 @@ TpAlunos *NovaCaixa(char Nome[]){
     printf("\nDigite a Cidade: ");
     gets(aux);
     strcpy(Caixa->Cidade,aux);
-    printf("\nDigite o Bairro");
+    printf("\nDigite o Bairro: ");
     gets(aux);
     strcpy(Caixa->Bairro,aux);
     printf("\nDigite a Rua: ");
@@ -69,17 +69,17 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
     TpAlunos *NC = NovaCaixa(Nome), *P;
 	Desc.Qtde++;
 
-    if(Lista == NULL){ //Lista Vazia
-        Lista = NC;
+    if(Desc.Inicio == NULL){ //Lista Vazia
+        Desc.Inicio = Desc.Fim = NC;
     }
 	else{
-        if(strcmp(NC->Nome,Lista->Nome) > 0 ){//Inicio
+        if(strcmp(NC->Nome,Desc.Inicio->Nome) > 0 ){//Inicio
             NC -> Prox = Desc.Inicio;
             Desc.Inicio -> Ant = NC;
             Desc.Inicio = NC;
         }
         else{//Ultimo
-            if(strcmp(NC->Nome,Lista->Nome) < 0 ){
+            if(strcmp(NC->Nome,Desc.Fim->Nome) < 0 ){
                 NC -> Ant = Desc.Fim;
                 Desc.Fim -> Prox = NC;
                 Desc.Fim = NC;
@@ -87,7 +87,7 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
             else{//meio
                     P = Desc.Inicio -> Prox;
                     while(P -> Prox != NULL && strcmp(P -> Nome,NC -> Nome) < 0) {
-                        P = P -> P;
+                        P = P -> Prox;
                     }
                     NC -> Prox = P;
                     NC -> Ant = P-> Ant;
@@ -105,16 +105,19 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
 
 //Exibir Alunos
 
-void exibirAlunos(TpDescritorA TpDesc) {
+void exibirAlunos(TpDescritorA Desc) {
 	TpAlunos *lista = Desc.Inicio;
+	printf("## ALUNO(S) ##\n");
 	while(lista != NULL) {
-		printf("%s\n",lista -> Nome);
+		
+		printf("-------%s-------\n",lista -> Nome);
         printf("%s\n",lista -> Curso);
         printf("%s\n",lista -> Rua);
         printf("%s\n",lista -> Bairro);
         printf("%s\n",lista -> Cidade);
-        printf("%d\n",lista -> Endereco);
-		lista = lista -> prox;
+        printf("%d\n\n",lista -> Endereco);
+     
+		lista = lista -> Prox;
 	}
 	getch();
 }

@@ -29,8 +29,9 @@ int main(void){
 
 	char op,aux[30];
 
-	DescA = IniciarDescA(DescA);
-
+	IniciarDescA(DescA);
+	//VerificarArquivo(DescA);
+	
 	do{
 		
 		op = Menu();
@@ -42,7 +43,7 @@ int main(void){
 				printf("\n## CADASTRO DE ALUNOS ##\n");
 				printf("Digite o Nome do Aluno: ");
 				gets(aux);
-				AdcionarAlunos(ListaA, DescA, aux[30]);
+				AdcionarAlunos(ListaA, DescA, aux);
 			break;
 			case 'E':
 				system("cls");
@@ -51,5 +52,6 @@ int main(void){
 		}
 		
 	}while(op!=27);
+	//GuadarDados(DescA);
 	return 0;
 }
