@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "listas.h"
 #include <ctype.h>
 #include <windows.h>
 #include <conio2.h>
