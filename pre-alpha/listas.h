@@ -94,20 +94,18 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
     if(Desc.Inicio == NULL){ //Lista Vazia
         Desc.Inicio = Desc.Fim = NC;
     }
-	else{
-        if(strcmp(NC->Nome,Desc.Inicio->Nome) > 0 ){//Inicio
+	else if(strcmp(NC->Nome,Desc.Inicio->Nome) > 0 ){//Inicio
             NC -> Prox = Desc.Inicio;
             Desc.Inicio -> Ant = NC;
             Desc.Inicio = NC;
-        }
-        else{//Ultimo
-            if(strcmp(NC->Nome,Desc.Fim->Nome) < 0 ){
+    }
+    else if(strcmp(NC->Nome,Desc.Fim->Nome) < 0 ){//Ultimo
                 NC -> Ant = Desc.Fim;
                 Desc.Fim -> Prox = NC;
                 Desc.Fim = NC;
-            }
-            else{//meio
-                    P = Desc.Inicio -> Prox;
+    }
+    else{//meio
+                   P = Desc.Inicio -> Prox;
                     while(P -> Prox != NULL && strcmp(P -> Nome,NC -> Nome) < 0) {
                         P = P -> Prox;
                     }
@@ -115,10 +113,10 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
                     NC -> Ant = P-> Ant;
                     P -> Ant -> Prox = NC;
                     P -> Ant = NC;
-                }
-        }
     }
 }
+    
+
 
 
 //NOTAS
