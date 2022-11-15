@@ -123,8 +123,43 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
 
 }
     
-    
+//Consultar Alunos  
+void consultarAluno(TpDescritorA Desc, char Nome[]){
+    TpAlunos *Lista = Desc.Inicio;
 
+    system("cls");
+    while(strcmp(Nome,Lista -> Nome)!=0) 
+        Lista = Lista -> Prox;
+    if(strcmp(Nome,Lista -> Nome)==0){
+    	printf("-------%s-------\n",Lista -> Nome);
+        printf("%s\n",Lista -> Curso);
+        printf("%s\n",Lista -> Rua);
+        printf("%s\n",Lista -> Bairro);
+        printf("%s\n",Lista -> Cidade);
+        printf("%d\n\n",Lista -> Endereco);
+    }
+    else
+        printf("\nAluno nao encontrado");
+    getch();
+}
+
+//Exibir Alunos
+void exibirAlunos(TpDescritorA Desc) {
+	TpAlunos *lista = Desc.Inicio;
+	printf("## ALUNO(S) ##\n");
+	while(lista != NULL) {
+		
+		printf("-------%s-------\n",lista -> Nome);
+        printf("%s\n",lista -> Curso);
+        printf("%s\n",lista -> Rua);
+        printf("%s\n",lista -> Bairro);
+        printf("%s\n",lista -> Cidade);
+        printf("%d\n\n",lista -> Endereco);
+     
+		lista = lista -> Prox;
+	}
+	getch();
+}
 //Materia
 
 //Caixa Materias
@@ -171,27 +206,6 @@ void *AdcionarMaterias(TpDescritorA &Desc, char Nome[]){
     }
 }
 
-
-
-//Consultar Alunos  
-void consultarAluno(TpDescritorA Desc, char Nome[]){
-    TpAlunos *Lista = Desc.Inicio;
-
-    system("cls");
-    while(strcmp(Nome,Lista -> Nome)!=0) 
-        Lista = Lista -> Prox;
-    if(strcmp(Nome,Lista -> Nome)==0){
-    	printf("-------%s-------\n",Lista -> Nome);
-        printf("%s\n",Lista -> Curso);
-        printf("%s\n",Lista -> Rua);
-        printf("%s\n",Lista -> Bairro);
-        printf("%s\n",Lista -> Cidade);
-        printf("%d\n\n",Lista -> Endereco);
-    }
-    else
-        printf("\nAluno nao encontrado");
-    getch();
-}
 //Consultar Materias
 void consultarNota(TpDescritorA Desc, char Nome[]){
     TpAlunos *Lista = Desc.Inicio;
@@ -213,24 +227,6 @@ void consultarNota(TpDescritorA Desc, char Nome[]){
     else
         printf("\nAluno nao encontrado");
     getch();
-}
-
-//Exibir Alunos
-void exibirAlunos(TpDescritorA Desc) {
-	TpAlunos *lista = Desc.Inicio;
-	printf("## ALUNO(S) ##\n");
-	while(lista != NULL) {
-		
-		printf("-------%s-------\n",lista -> Nome);
-        printf("%s\n",lista -> Curso);
-        printf("%s\n",lista -> Rua);
-        printf("%s\n",lista -> Bairro);
-        printf("%s\n",lista -> Cidade);
-        printf("%d\n\n",lista -> Endereco);
-     
-		lista = lista -> Prox;
-	}
-	getch();
 }
 
 //Exibir Materias 
