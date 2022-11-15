@@ -122,8 +122,24 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
 //NOTAS
 
 
-
 //Exibir Alunos
+void consultarAluno(TpDescritorA Desc, char Nome[]){
+    TpAlunos *Lista = Desc.Inicio;
+    system("cls");
+    while(strcmp(Nome,Lista->Nome)!=0) 
+        Lista = Lista->Prox;
+    if(strcmp(Nome,Lista->Nome)==0){
+    	printf("-------%s-------\n",Lista -> Nome);
+        printf("%s\n",Lista -> Curso);
+        printf("%s\n",Lista -> Rua);
+        printf("%s\n",Lista -> Bairro);
+        printf("%s\n",Lista -> Cidade);
+        printf("%d\n\n",Lista -> Endereco);
+    }
+    else
+        printf("\nAluno nao encontrado");
+    getch();
+}
 
 void exibirAlunos(TpDescritorA Desc) {
 	TpAlunos *lista = Desc.Inicio;

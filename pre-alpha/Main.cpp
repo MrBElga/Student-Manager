@@ -43,7 +43,8 @@ int main(void){
 			case 'A': 
 				system("cls");
 				printf("\n## CADASTRO DE ALUNOS ##\n");
-				printf("Digite o Nome do Aluno: ");fflush(stdin);
+				printf("Digite o Nome do Aluno: ");
+				fflush(stdin);
 				gets(aux);
 				Reg = BuscarAlunos(aux,DescA);
 				while(strcmp(aux,Reg.Nome)==0){
@@ -56,6 +57,12 @@ int main(void){
 			case 'E':
 				system("cls");
 				exibirAlunos(DescA);
+			break;
+			case 'C':
+				printf("Digite o Nome do Aluno: ");
+				fflush(stdin);
+				gets(aux);
+				consultarAluno(DescA,aux);
 			break;
 		}
 		
