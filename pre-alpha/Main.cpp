@@ -7,6 +7,14 @@
 #include <time.h>
 #include <string.h>
 
+char alunoValido(char Nome[], TpDescritorA Desc) {
+	if(strcmp(BuscarAlunos(Nome,Desc).Nome,Nome) == 0) {
+		return 0;
+	}
+	return 1;
+}
+
+
 char Menu ()
 {
 	system("cls");
@@ -25,6 +33,7 @@ char Menu ()
 int main(void){
 	TpDescritorA DescA;
 	TpAlunos ListaA,Reg;
+	TpNotas ListaN;
 	
 	
 
@@ -63,6 +72,22 @@ int main(void){
 				fflush(stdin);
 				gets(aux);
 				consultarAluno(DescA,aux);
+			break;
+			case'F':
+				system("cls");
+				printf("Digite o Nome do Aluno: ");
+				fflush(stdin);
+				gets(aux);
+				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0){
+					printf("Digite o Nome do Aluno: ");
+					fflush(stdin);
+					gets(aux);
+				}
+				AdcionarMaterias(DescA,aux);
+			break;
+			case 'G':
+				
+				exibirMaterias(DescA);
 			break;
 		}
 		
