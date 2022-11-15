@@ -192,6 +192,28 @@ void consultarAluno(TpDescritorA Desc, char Nome[]){
         printf("\nAluno nao encontrado");
     getch();
 }
+//Consultar Materias
+void consultarNota(TpDescritorA Desc, char Nome[]){
+    TpAlunos *Lista = Desc.Inicio;
+    TpNotas *ListaN;
+
+    system("cls");
+    while(strcmp(Nome,Lista -> Nome)!=0) 
+        Lista = Lista -> Prox;
+    ListaN = Lista->ListaNotas;
+    if(ListaN != NULL){
+        while(ListaN != NULL){
+            printf("-------%s-------\n",ListaN -> Materia);
+            printf("%.2f\n",ListaN -> Nota0);
+            printf("%.2f\n",ListaN -> Nota2);
+            printf("%d\n",ListaN -> Frequencia);
+            ListaN = ListaN -> prox;
+        }
+    }
+    else
+        printf("\nAluno nao encontrado");
+    getch();
+}
 
 //Exibir Alunos
 void exibirAlunos(TpDescritorA Desc) {
@@ -211,6 +233,7 @@ void exibirAlunos(TpDescritorA Desc) {
 	getch();
 }
 
+//Exibir Materias 
 void exibirMaterias(TpDescritorA Desc){
     TpAlunos *Lista = Desc.Inicio;
     TpNotas *ListaN;

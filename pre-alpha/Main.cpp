@@ -93,6 +93,19 @@ int main(void){
 				
 				exibirMaterias(DescA);
 			break;
+
+			case 'H':
+				printf("Digite o Nome do Aluno: ");
+				fflush(stdin);
+				gets(aux);
+				Reg = BuscarAlunos(aux,DescA);
+				while(strcmp(aux,Reg.Nome)!=0){
+					printf("Digite o Nome do Aluno: ");
+					gets(aux);
+					Reg = BuscarAlunos(aux,DescA);
+				}
+				consultarNota(DescA,aux);
+			break;
 		}
 		
 	}while(op!=27);
