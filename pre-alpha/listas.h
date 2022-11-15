@@ -217,7 +217,7 @@ void exibirMaterias(TpDescritorA Desc){
 
     system("cls");
     printf("Materias\n");
-    while(Lista != NULL) {
+    while(Lista != NULL){
         printf("Aluno: %s", Lista -> Nome);
         ListaN = Lista -> ListaNotas;
         if(ListaN != NULL){
