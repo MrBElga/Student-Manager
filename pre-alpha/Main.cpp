@@ -15,15 +15,19 @@ char alunoValido(char Nome[], TpDescritorA Desc) {
 }
 
 
-char Menu ()
-{
+char menu (){
 	system("cls");
-	printf("[A] - Cadastrar Aluno\n");
-	printf("[B] - Excluir Aluno\n");
-	printf("[C] - Consultar Aluno\n");
-	printf("[D] - Alterar dados do Aluno\n");
-	printf("[E] -  Relatorio dos Alunos\n");
-	printf("[ESC] - Finalizar\n");
+	printf("[A] - 	CADASTRAR ALUNOS\n");
+	printf("[B] - 	EXCLUIR ALUNOS\n");
+	printf("[C] - 	CONSULTAR ALUNOS\n");
+	printf("[D] - 	ALTERAR ALUNOS\n");
+	printf("[E] -  	EXIBIR ALUNOS\n");
+	printf("[F] -  	CADASTRAS NOTA\n");
+	printf("[G] -  	EXIBIR NOTAS\n");
+	printf("[D] - 	ALTERAR NOTAS DE UM ALUNO\n");
+	printf("[H] -  	CONSULTAR NOTAS DE UM ALUNO\n");
+	printf("[I] -  	EXIBIR NOTAS\n");
+	printf("[ESC] - FINALIZAR\n");
 	
 	return toupper(getch());
 }
@@ -45,7 +49,7 @@ int main(void){
 	
 	do{
 		
-		op = Menu();
+		op = menu();
 		
 		switch(op)
 		{	
