@@ -62,10 +62,10 @@ int main(void){
 				fflush(stdin);
 				gets(aux);
 				Reg = BuscarAlunos(aux,DescA);
-				while(strcmp(aux,Reg.Nome)==0){
+				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
 					printf("Digite o Nome do Aluno: ");
+					fflush(stdin);
 					gets(aux);
-					Reg = BuscarAlunos(aux,DescA);
 				}
 				AdcionarAlunos(ListaA, DescA, aux);
 			break;
@@ -74,7 +74,7 @@ int main(void){
 				printf("Digite o Nome do Aluno: ");
 				fflush(stdin);
 				gets(aux);
-				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0){
+				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0  || strcmp(aux," ")==0 || aux[0]=='\0'){
 					printf("Digite o Nome do Aluno: ");
 					fflush(stdin);
 					gets(aux);
@@ -89,6 +89,11 @@ int main(void){
 				printf("Digite o Nome do Aluno: ");
 				fflush(stdin);
 				gets(aux);
+				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
+					printf("Digite o Nome do Aluno: ");
+					fflush(stdin);
+					gets(aux);
+				}
 				consultarAluno(DescA,aux);
 			break;
 			case'F':
@@ -96,7 +101,7 @@ int main(void){
 				printf("Digite o Nome do Aluno: ");
 				fflush(stdin);
 				gets(aux);
-				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0){
+				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
 					printf("Digite o Nome do Aluno: ");
 					fflush(stdin);
 					gets(aux);
@@ -111,12 +116,11 @@ int main(void){
 			case 'H':
 				printf("Digite o Nome do Aluno: ");
 				fflush(stdin);
-				gets(aux);
-				Reg = BuscarAlunos(aux,DescA);
-				while(strcmp(aux,Reg.Nome)!=0){
+				gets(aux);	
+				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
 					printf("Digite o Nome do Aluno: ");
+					fflush(stdin);
 					gets(aux);
-					Reg = BuscarAlunos(aux,DescA);
 				}
 				consultarNota(DescA,aux);
 			break;
@@ -124,28 +128,13 @@ int main(void){
 				printf("Digite o Nome do Aluno: ");
 				fflush(stdin);
 				gets(aux);
-				Reg = BuscarAlunos(aux,DescA);
-				while(strcmp(aux,Reg.Nome)!=0){
+				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
 					printf("Digite o Nome do Aluno: ");
+					fflush(stdin);
 					gets(aux);
-					Reg = BuscarAlunos(aux,DescA);
 				}
-	//			ListaA = DescA.Inicio;
-//				
-//				while(strcmp(ListaA->Nome,Nome)!=0)
-//					ListaA = ListaA->Prox;
-//					
-//				printf("Digite o Nome da materia: ");
-//				fflush(stdin);
-//				gets(aux);
-//	//			RegN = BuscarMateria(aux,ListaN);
-//				while(strcmp(aux,RegN.Materia)!=0){
-//					printf("Digite o Nome da Materia: ");
-//					gets(aux);
-//					RegN = BuscarMateria(aux,ListaN);
-//				}
-//				excluirMateria(ListaA->ListaNotas,aux[]);
-//			
+				
+				//BuscarNotas();
 			break;
 		}
 		

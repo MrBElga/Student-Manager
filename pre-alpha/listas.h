@@ -223,7 +223,8 @@ TpNotas BuscarNotas(TpNotas ListaN, char Materia[]) {
 	if(lista != NULL) {
 		reg = *lista;
 	}
-	
+	printf("%s",lista->Materia);
+    getch();
 	return reg;
 }
 //Caixa Materias
