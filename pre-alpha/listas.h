@@ -122,6 +122,47 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
       
 
 }
+
+//Excluir Aluno
+void excluirAlunos(char Nome[], TpDescritorA &Desc) {
+	TpAlunos *aux;
+    TpNotas *auxN;
+	Desc.Qtde--; 
+	
+	if(Desc.Qtde == 0) {
+		aux = Desc.Inicio; 
+		Desc.Inicio = Desc.Fim = NULL;
+		delete(aux);
+	}
+	else if(strcmp(Desc.Inicio ->  Nome, Nome) == 0) {
+		//inicio
+		aux = Desc.Inicio; 
+		aux -> Prox -> Ant = NULL;
+		Desc.Inicio = aux -> Prox;
+		delete(aux);
+	}
+	else if(strcmp(Desc.Fim ->  Nome, Nome) == 0) {
+		//fim
+		aux = Desc.Fim; 
+		aux -> Ant -> Prox = NULL;
+	    Desc.Fim = aux -> Ant;
+		delete(aux);
+	}
+	else {
+		//meio
+		aux = Desc.Inicio -> Prox; 
+		
+		while(strcmp(aux -> Nome, Nome) != 0) {
+			aux = aux -> Prox;
+		}
+		
+		aux -> Prox -> Ant = aux -> Ant;
+		aux -> Ant -> Prox = aux -> Prox;
+		delete(aux);
+		
+	}
+}
+
     
 //Consultar Alunos  
 void consultarAluno(TpDescritorA Desc, char Nome[]){
@@ -184,7 +225,7 @@ TpNotas *NovaCaixaM(char Materia[]){
 }
 
 //Adciona Materias 
-void *AdcionarMaterias(TpDescritorA &Desc, char Nome[]){
+void AdcionarMaterias(TpDescritorA &Desc, char Nome[]){
 	char aux[30];
     printf("Digite o Nome da materia: ");
 	fflush(stdin);
