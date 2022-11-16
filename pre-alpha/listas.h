@@ -118,9 +118,7 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
 	    NC -> Ant = P-> Ant;
 	    P -> Ant -> Prox = NC;
 	    P -> Ant = NC;
-    }
-      
-
+    }   
 }
 
 //Excluir Aluno
@@ -128,6 +126,9 @@ void excluirAlunos(char Nome[], TpDescritorA &Desc) {
 	TpAlunos *aux;
     TpNotas *auxN;
 	Desc.Qtde--; 
+
+    //deletar Materias do aluno
+	aux = Desc.Inicio;
 	
 	if(Desc.Qtde == 0) {
 		aux = Desc.Inicio; 
@@ -248,17 +249,6 @@ void AdcionarMaterias(TpDescritorA &Desc, char Nome[]){
 }
 
 //Excluir Materias
-void excluirNotas(TpDescritorA &Desc, char Nome[],char Materia[]){
-    TpAlunos *Lista = Desc.Inicio;
-    TpNotas *ListaN;
-    while(strcmp(Lista->Nome, Nome)!=0){
-			Lista = Lista->Prox;
-	}
-
-    
-
-
-}
 
 //Consultar Materias
 void consultarNota(TpDescritorA Desc, char Nome[]){

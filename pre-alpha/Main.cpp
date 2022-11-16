@@ -27,6 +27,7 @@ char menu (){
 	printf("[D] - 	ALTERAR NOTAS DE UM ALUNO\n");
 	printf("[H] -  	CONSULTAR NOTAS DE UM ALUNO\n");
 	printf("[I] -  	EXIBIR NOTAS\n");
+	printf("[J] - 	EXCLUIR NOTAS\n");
 	printf("[ESC] - FINALIZAR\n");
 	
 	return toupper(getch());
@@ -38,6 +39,7 @@ int main(void){
 	TpDescritorA DescA;
 	TpAlunos ListaA,Reg;
 	TpNotas ListaN;
+
 	
 	
 
@@ -66,6 +68,18 @@ int main(void){
 					Reg = BuscarAlunos(aux,DescA);
 				}
 				AdcionarAlunos(ListaA, DescA, aux);
+			break;
+			case 'B':
+				system("cls");
+				printf("Digite o Nome do Aluno: ");
+				fflush(stdin);
+				gets(aux);
+				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0){
+					printf("Digite o Nome do Aluno: ");
+					fflush(stdin);
+					gets(aux);
+				}
+				excluirAlunos(aux,DescA);
 			break;
 			case 'E':
 				system("cls");
@@ -105,6 +119,19 @@ int main(void){
 					Reg = BuscarAlunos(aux,DescA);
 				}
 				consultarNota(DescA,aux);
+			break;
+			case 'J':
+				printf("Digite o Nome do Aluno: ");
+				fflush(stdin);
+				gets(aux);
+				Reg = BuscarAlunos(aux,DescA);
+				while(strcmp(aux,Reg.Nome)!=0){
+					printf("Digite o Nome do Aluno: ");
+					gets(aux);
+					Reg = BuscarAlunos(aux,DescA);
+				}
+			
+			
 			break;
 		}
 		
