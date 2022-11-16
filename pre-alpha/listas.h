@@ -120,7 +120,7 @@ void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
 	    P -> Ant = NC;
     }   
 }
-
+TpNotas *excluirMateria(TpNotas *ListaN,char Materia[]);
 //Excluir Aluno
 void excluirAlunos(char Nome[], TpDescritorA &Desc) {
 	TpAlunos *aux;
@@ -129,6 +129,13 @@ void excluirAlunos(char Nome[], TpDescritorA &Desc) {
 
     //deletar Materias do aluno
 	aux = Desc.Inicio;
+	while(strcmp(aux->Nome,Nome)!=0)
+		aux = aux->Prox;
+	auxN = aux->ListaNotas;
+	while(auxN != NULL){
+		auxN = excluirMateria(auxN, auxN->Materia);
+		auxN = auxN->prox;
+	}
 	
 	if(Desc.Qtde == 0) {
 		aux = Desc.Inicio; 
@@ -204,6 +211,21 @@ void exibirAlunos(TpDescritorA Desc) {
 }
 //Materia
 
+//BUSCA Materia
+TpNotas BuscarNotas(TpNotas ListaN, char Materia[]) {
+	TpNotas reg, *lista;
+	
+	strcpy(reg.Materia, "");
+	while(lista != NULL && strcmp(Materia,lista->Materia) != 0) {
+		lista = lista -> prox;
+	}
+	
+	if(lista != NULL) {
+		reg = *lista;
+	}
+	
+	return reg;
+}
 //Caixa Materias
 TpNotas *NovaCaixaM(char Materia[]){
 	TpNotas *Caixa = new TpNotas;
@@ -249,7 +271,33 @@ void AdcionarMaterias(TpDescritorA &Desc, char Nome[]){
 }
 
 //Excluir Materias
-
+TpNotas *excluirMateria(TpNotas *ListaN,char Materia[]){
+    TpNotas *ListaNotas = ListaN,*Atual,*Ant;
+    if(strcmp(ListaNotas->Materia,Materia)==0){
+    	ListaN = ListaNotas -> prox;
+    	delete(ListaNotas);
+    }
+    else{
+    	Atual = ListaNotas;
+    	while(strcmp(Atual->Materia,Materia)!=0){
+    		Ant = Atual;
+    		Atual = Atual->prox;
+    	}
+    	if(Atual->prox == NULL){
+    		delete(Atual);
+    		Ant->prox=NULL;
+    		ListaNotas = Ant;
+    		ListaN = ListaNotas;
+    	}
+    	else{
+    		Ant->prox = Atual->prox;
+    		delete(Atual);
+    		ListaNotas = Ant;
+    		ListaN = ListaNotas;
+    	}
+    }
+    return ListaN;
+}
 //Consultar Materias
 void consultarNota(TpDescritorA Desc, char Nome[]){
     TpAlunos *Lista = Desc.Inicio;

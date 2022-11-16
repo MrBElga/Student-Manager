@@ -38,7 +38,7 @@ char menu (){
 int main(void){
 	TpDescritorA DescA;
 	TpAlunos ListaA,Reg;
-	TpNotas ListaN;
+	TpNotas ListaN,RegN;
 
 	
 	
@@ -130,8 +130,22 @@ int main(void){
 					gets(aux);
 					Reg = BuscarAlunos(aux,DescA);
 				}
-			
-			
+	//			ListaA = DescA.Inicio;
+//				
+//				while(strcmp(ListaA->Nome,Nome)!=0)
+//					ListaA = ListaA->Prox;
+//					
+//				printf("Digite o Nome da materia: ");
+//				fflush(stdin);
+//				gets(aux);
+//	//			RegN = BuscarMateria(aux,ListaN);
+//				while(strcmp(aux,RegN.Materia)!=0){
+//					printf("Digite o Nome da Materia: ");
+//					gets(aux);
+//					RegN = BuscarMateria(aux,ListaN);
+//				}
+//				excluirMateria(ListaA->ListaNotas,aux[]);
+//			
 			break;
 		}
 		
