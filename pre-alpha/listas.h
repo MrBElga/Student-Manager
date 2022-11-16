@@ -206,16 +206,17 @@ void *AdcionarMaterias(TpDescritorA &Desc, char Nome[]){
     }
 }
 
-//Excluir Materia
-
+//Excluir Materias
 void excluirNotas(TpDescritorA &Desc, char Nome[],char Materia[]){
     TpAlunos *Lista = Desc.Inicio;
     TpNotas *ListaN;
     while(strcmp(Lista->Nome, Nome)!=0){
 			Lista = Lista->Prox;
 	}
+
     
-    
+
+
 }
 
 //Consultar Materias
