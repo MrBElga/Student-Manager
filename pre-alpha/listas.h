@@ -206,6 +206,18 @@ void *AdcionarMaterias(TpDescritorA &Desc, char Nome[]){
     }
 }
 
+//Excluir Materia
+
+void excluirNotas(TpDescritorA &Desc, char Nome[],char Materia[]){
+    TpAlunos *Lista = Desc.Inicio;
+    TpNotas *ListaN;
+    while(strcmp(Lista->Nome, Nome)!=0){
+			Lista = Lista->Prox;
+	}
+    
+    
+}
+
 //Consultar Materias
 void consultarNota(TpDescritorA Desc, char Nome[]){
     TpAlunos *Lista = Desc.Inicio;
@@ -228,6 +240,7 @@ void consultarNota(TpDescritorA Desc, char Nome[]){
         printf("\nAluno nao encontrado");
     getch();
 }
+
 
 //Exibir Materias 
 void exibirMaterias(TpDescritorA Desc){
