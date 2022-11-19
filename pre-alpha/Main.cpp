@@ -440,6 +440,12 @@ int main(void){
 
 				ExcluirMateria(BuscarNotas(Lista->DescM,aux3).Materia,Lista->DescM);
 			break;
+				case 'K':system("cls");
+					printf("### Relatorio ###\n\n");
+					Relatorio(DescA);
+					getch();
+				break;
+
 		}
 		
 	}while(op!=27);

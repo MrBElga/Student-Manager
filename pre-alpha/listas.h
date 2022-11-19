@@ -399,3 +399,26 @@ void ExibirMaterias(TpDescritorA Desc){
     }
     getch();
  }
+ void Relatorio(TpDescritorA Desc){
+    TpAlunos *Lista = Desc.Inicio;
+    TpMateria *ListaN;
+	float media;
+    while(Lista != NULL){
+        printf("Aluno: %s \n", Lista -> Nome);
+        ListaN = Lista->DescM.Inicio;
+        while(ListaN != NULL){
+			  media = (ListaN->Nota0 + ListaN->Nota2)/2;
+			  printf("%.2f \n",media);
+			 if(media >=6 )
+			 	printf("\nAprovado\n");
+			else
+				printf("\nReprovado\n");
+             ListaN = ListaN->prox;
+			 media =0;
+        }
+        
+        printf("\n");
+        Lista = Lista->Prox;
+    }
+    getch();
+ }
