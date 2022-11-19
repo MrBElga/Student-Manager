@@ -37,9 +37,11 @@ struct TpDescritorA{
     TpAlunos *Inicio, *Fim;
 };
 
+//DESCRITORES
 void IniciarDescA(TpDescritorA &DescA);
 void IniciarDescM(TpDescritorA &DescM);
 
+//ALUNOS
 TpAlunos BuscarAlunos(char Nome[], TpDescritorA Desc);
 TpAlunos *NovaCaixa(char Nome[]);
 void AdcionarAlunos(TpDescritorA &Desc, char Nome[]);
@@ -48,6 +50,7 @@ void AlterarAluno(char nome[], TpDescritorA &Desc);
 void ConsultarAluno(TpDescritorA Desc, char Nome[]);
 void exibirAlunos(TpDescritorA Desc);
 
+//MATERIAS
 TpMateria BuscarNotas(TpMateria ListaN, char Materia[]);
 TpMateria *NovaCaixaM(char Materia[]);
 void AdcionarMaterias(TpDescritorM &Desc);
@@ -67,7 +70,6 @@ void IniciarDescM(TpDescritorM &DescM){
 }
 
 //ALUNOS
-
 //BUSCA ALUNOS
 TpAlunos BuscarAlunos(char Nome[], TpDescritorA Desc) {
 	TpAlunos reg, *lista;
@@ -86,7 +88,6 @@ TpAlunos BuscarAlunos(char Nome[], TpDescritorA Desc) {
 	return reg;
 }
 
-//CRIA NOVA CAIXA 
 
 //Caixa Alunos
 TpAlunos *NovaCaixa(char Nome[]){
@@ -199,6 +200,7 @@ void ExcluirAlunos(char Nome[], TpDescritorA &Desc) {
 		
 	}
 }
+
 // Alterar Aluno
 void AlterarAluno(char nome[], TpDescritorA &Desc, TpAlunos Alunos) {
 	TpAlunos *lista = Desc.Inicio;
@@ -225,6 +227,7 @@ void AlterarAluno(char nome[], TpDescritorA &Desc, TpAlunos Alunos) {
 
 	
 }
+
 //Consultar Alunos  
 void ConsultarAluno(TpDescritorA Desc, char Nome[]){
     TpAlunos *Lista = Desc.Inicio;
@@ -262,8 +265,8 @@ void exibirAlunos(TpDescritorA Desc) {
 	}
 	getch();
 }
-//Materia
 
+//Materia
 //BUSCA Materia
 TpMateria BuscarNotas(TpDescritorM Desc, char Materia[]) {
 	TpMateria reg, *lista = Desc.Inicio;
@@ -278,6 +281,7 @@ TpMateria BuscarNotas(TpDescritorM Desc, char Materia[]) {
 	}
 	return reg;
 }
+
 //Caixa Materias
 TpMateria *NovaCaixaM(char Materia[]){
 	TpMateria *Caixa = new TpMateria;
@@ -401,7 +405,6 @@ void ConsultarMateria(TpDescritorA Desc, char Nome[]){
         printf("\nAluno nao encontrado");
     getch();
 }
-
 
 //Exibir Materias 
 void ExibirMaterias(TpDescritorA Desc){
