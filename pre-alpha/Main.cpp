@@ -119,17 +119,27 @@ char menualtM(){
 }
 char menu (){
 	system("cls");
+	printf("----------------------------------\n");
+	printf("########## ALUNOS ########## \n" );
 	printf("[A] - 	CADASTRAR ALUNOS\n");
 	printf("[B] - 	EXCLUIR ALUNOS\n");
 	printf("[C] - 	CONSULTAR ALUNOS\n");
 	printf("[D] - 	ALTERAR ALUNOS\n");
 	printf("[E] -  	EXIBIR ALUNOS\n");
+	printf("----------------------------------\n");
+	printf("########## MATERIAS ########## \n");
 	printf("[F] -  	CADASTRAS NOTA\n");
 	printf("[G] -  	EXIBIR NOTAS\n");
 	printf("[H] - 	ALTERAR NOTAS DE UM ALUNO\n");
 	printf("[I] -  	CONSULTAR NOTAS DE UM ALUNO\n");
 	printf("[J] - 	EXCLUIR NOTAS\n");
-	printf("[ESC] - FINALIZAR\n");
+	printf("----------------------------------\n");
+	printf("########## RELATORIOS ########## \n");
+	printf("[K] -  	NOTAS DE UMA MATERIA\n");
+	printf("[L] -  	ALUNOS COM REPROVAS\n");
+	printf("----------------------------------\n");
+	printf("[ESC] - FINALIZAR\n\n");
+	
 	printf("OPCAO: ");
 
 	return toupper(getch());
