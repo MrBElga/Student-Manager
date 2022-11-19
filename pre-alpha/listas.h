@@ -44,6 +44,7 @@ TpAlunos BuscarAlunos(char Nome[], TpDescritorA Desc);
 TpAlunos *NovaCaixa(char Nome[]);
 void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]);
 void ExcluirAlunos(char Nome[], TpDescritorA &Desc);
+void AlterarAluno(char nome[], TpDescritorA &Desc, TpAlunos Alunos);
 void ConsultarAluno(TpDescritorA Desc, char Nome[]);
 void exibirAlunos(TpDescritorA Desc);
 
@@ -51,6 +52,7 @@ TpMateria BuscarNotas(TpMateria ListaN, char Materia[]);
 TpMateria *NovaCaixaM(char Materia[]);
 void AdcionarMaterias(TpMateria materias,TpDescritorM &Desc);
 void ExcluirMateria(char nome[], TpDescritorM &DescM);
+void AlterarMateria(char materia[], TpDescritorM &Desc, TpMateria materias);
 void ConsultarMateria(TpDescritorA Desc, char Nome[]);
 void ExibirMaterias(TpDescritorA Desc);
 
@@ -118,7 +120,7 @@ TpAlunos *NovaCaixa(char Nome[]){
 
 
 //Adciona alunos
-void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]){
+void AdcionarAlunos(TpDescritorA &Desc, char Nome[]){
     TpAlunos *NC = NovaCaixa(Nome), *P;
 
 	Desc.Qtde++;
@@ -198,12 +200,9 @@ void ExcluirAlunos(char Nome[], TpDescritorA &Desc) {
 	}
 }
 // Alterar Aluno
-    void AlterarAluno(char nome[], TpDescritorA &Desc, TpAlunos Alunos) {
+void AlterarAluno(char nome[], TpDescritorA &Desc, TpAlunos Alunos) {
 	TpAlunos *lista = Desc.Inicio;
-	TpMateria *listaMateria, regAux;
-	int i, j;
-	char aux[30];
-	
+
 	while(strcmp(lista -> Nome, nome)!= 0) {
 		lista = lista -> Prox;
 	}
@@ -266,8 +265,8 @@ void exibirAlunos(TpDescritorA Desc) {
 //Materia
 
 //BUSCA Materia
-TpMateria BuscarNotas(TpMateria ListaN, char Materia[]) {
-	TpMateria reg, *lista;
+TpMateria BuscarNotas(TpDescritorM Desc, char Materia[]) {
+	TpMateria reg, *lista = Desc.Inicio;
 	
 	strcpy(reg.Materia, "");
 	while(lista != NULL && strcmp(Materia,lista->Materia) != 0) {
@@ -302,15 +301,16 @@ TpMateria *NovaCaixaM(char Materia[]){
 }
 
 //Adciona Materias 
-void AdcionarMaterias(TpMateria materias,TpDescritorM &Desc){
-    TpMateria *NC, *aux = Desc.Fim,*ant; 
+void AdcionarMaterias(TpDescritorM &Desc){
+    TpMateria *NC;
     Desc.Qtde++;
 
-    char auxC[30];
+    char auxC[20];
 
     system("cls");
-    printf("\nDigite o Nome da materia: "); fflush(stdin);
-    scanf("%s",&auxC);
+    printf("\nDigite o Nome da materia: "); 
+    fflush(stdin);
+    gets(auxC);
  
     NC = NovaCaixaM(auxC);
 
@@ -318,11 +318,6 @@ void AdcionarMaterias(TpMateria materias,TpDescritorM &Desc){
         Desc.Inicio = Desc.Fim = NC;
     }
     else{//Fim
-        while(aux->prox != NULL){
-            ant = aux;
-            aux = aux->prox;
-        }
- 
         Desc.Fim->prox = NC;
         Desc.Fim = NC;
     }
@@ -370,12 +365,26 @@ void ExcluirMateria(char nome[], TpDescritorM &DescM){
 		delete(aux);	
     }
 }
+
+// Alterar MAteria
+void AlterarMateria(char materia[], TpDescritorM &Desc, TpMateria materias) {
+	TpMateria *lista = Desc.Inicio;
+
+	while(strcmp(lista -> Materia, materia)!= 0) {
+		lista = lista -> prox;
+	}
+
+	strcpy(lista -> Materia, materias.Materia);
+	lista -> Nota0 = materias.Nota0;
+	lista -> Nota2 = materias.Nota2;
+    lista -> Frequencia = materias.Frequencia;
+}
+
 //Consultar Materias
 void ConsultarMateria(TpDescritorA Desc, char Nome[]){
     TpAlunos *Lista = Desc.Inicio;
     TpMateria *ListaN;
 
-    system("cls");
     while(strcmp(Nome,Lista -> Nome)!=0) 
         Lista = Lista -> Prox;
     ListaN = Lista->ListaNotas;
@@ -399,11 +408,8 @@ void ExibirMaterias(TpDescritorA Desc){
     TpAlunos *Lista = Desc.Inicio;
     TpMateria *ListaN;
 
-    system("cls");
-    printf("Materias\n");
     while(Lista != NULL){
         printf("Aluno: %s", Lista -> Nome);
-        Lista->DescM;
         ListaN = Lista->DescM.Inicio;
         while(ListaN != NULL){
               printf("\n-----%s-----",ListaN->Materia);

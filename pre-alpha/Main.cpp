@@ -29,7 +29,16 @@ char menualt(){
 	return toupper(getch());
 
 }
+char menualtM(){
+	system("cls");
+	printf("[A] - 	ALTERAR NOME\n");
+	printf("[B] - 	ALTERAR NOTA DO PRIMEIRO BIM\n");
+	printf("[C] -  	ALTERAR NOTA DO SEGUNDO BIM \n");
+	printf("[D] - 	ALTERAR FREQUENCIA\n");
+	printf("OPCAO: ");
 
+	return toupper(getch());
+}
 char menu (){
 	system("cls");
 	printf("[A] - 	CADASTRAR ALUNOS\n");
@@ -41,8 +50,7 @@ char menu (){
 	printf("[G] -  	EXIBIR NOTAS\n");
 	printf("[H] - 	ALTERAR NOTAS DE UM ALUNO\n");
 	printf("[I] -  	CONSULTAR NOTAS DE UM ALUNO\n");
-	printf("[J] -  	EXIBIR NOTAS\n");
-	printf("[K] - 	EXCLUIR NOTAS\n");
+	printf("[J] - 	EXCLUIR NOTAS\n");
 	printf("[ESC] - FINALIZAR\n");
 	printf("OPCAO: ");
 
@@ -62,7 +70,6 @@ int main(void){
 	
 
 	char op,aux[30],aux2[30];
-
 	IniciarDescA(DescA);
 	
 
@@ -85,7 +92,7 @@ int main(void){
 					fflush(stdin);
 					gets(aux);
 				}
-				AdcionarAlunos(ListaA, DescA, aux);
+				AdcionarAlunos(DescA, aux);
 			break;
 			case 'B':
 				system("cls");
@@ -215,7 +222,7 @@ int main(void){
 			break;
 			case'F':
 				system("cls");
-				printf("## ADCIONAR MATERIAS ##\n");
+				printf("## CADASTRAR MATERIAS ##\n");
 				printf("Digite o Nome do Aluno: ");
 				fflush(stdin);
 				gets(aux);
@@ -230,13 +237,76 @@ int main(void){
 					Lista = Lista -> Prox;
 				}
 				
-				AdcionarMaterias(ListaM,Lista->DescM);
+				AdcionarMaterias(Lista->DescM);
 			break;
 			case 'G':
+				system("cls");
 				ExibirMaterias(DescA);
 			break;
-
 			case 'H':
+				system("cls");
+				printf("## ALTERAR ATERIAS ##\n");
+				printf("Digite o Nome do Aluno: ");
+				fflush(stdin);
+				gets(aux);
+
+				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
+					printf("Digite o Nome do Aluno: ");
+					fflush(stdin);
+					gets(aux);
+				}
+				while(strcmp(Lista->Nome,aux)!=0)
+					Lista = Lista->Prox;
+				printf("Digite o Nome da materia: ");
+				fflush(stdin);
+				gets(aux2);
+				while(strcmp(BuscarNotas(Lista->DescM,aux2).Materia,aux2)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
+					printf("Digite o Nome da materia: ");
+					fflush(stdin);
+					gets(aux2);
+				}
+				ListaM = BuscarNotas(Lista->DescM,aux2);
+					system("cls");
+				
+					op = menualtM();
+					system("cls");
+					switch(op)
+					{
+						case 'A':
+							printf("\nDigite o novo nome da materia: ");
+							fflush(stdin);
+							gets(aux);
+							strcpy(RegM.Materia,aux);
+							RegM.Nota0 = ListaM.Nota0;
+							RegM.Nota2 = ListaM.Nota2;
+							RegM.Frequencia = ListaM.Frequencia;
+						break;
+						case 'B':
+							strcpy(RegM.Materia, ListaM.Materia);
+							printf("Digite a Nota do primeiro bim: ");
+							scanf("%f",&RegM.Nota0);
+							RegM.Nota2 = ListaM.Nota2;
+							RegM.Frequencia = ListaM.Frequencia;
+						break;
+						case 'C':
+							strcpy(RegM.Materia, ListaM.Materia);
+							RegM.Nota0 = ListaM.Nota0;
+							printf("Digite a Nota do segundo bim: ");
+							scanf("%f",&RegM.Nota2);
+							RegM.Frequencia = ListaM.Frequencia;
+				
+						break;	
+						case 'D':
+							strcpy(RegM.Materia, ListaM.Materia);
+							RegM.Nota0 = ListaM.Nota0;
+							RegM.Nota2 = ListaM.Nota2;
+							printf("Digite a Nota do segundo bim: ");
+							scanf("%d",&RegM.Frequencia);
+						break;
+						AlterarMateria(aux2,Lista->DescM,RegM);
+					}
+			break;
+			case 'I':
 				system("cls");
 				printf("## CONSULTAR MATERIAS ##\n");
 				printf("Digite o Nome do Aluno: ");
@@ -263,13 +333,13 @@ int main(void){
 				printf("Digite o Nome da materia: ");
 				fflush(stdin);
 				gets(aux2);
-				while(strcmp(BuscarNotas(ListaM,aux2).Materia,aux2)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
+				while(strcmp(BuscarNotas(Lista->DescM,aux2).Materia,aux2)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
 					printf("Digite o Nome da materia: ");
 					fflush(stdin);
 					gets(aux2);
 				}
 
-				ExcluirMateria(BuscarNotas(ListaM,aux2).Materia,Lista->DescM);
+				ExcluirMateria(BuscarNotas(Lista->DescM,aux2).Materia,Lista->DescM);
 				//BuscarNotas();
 			break;
 		}
