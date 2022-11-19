@@ -324,18 +324,26 @@ int main(void){
 					fflush(stdin);
 					gets(ListaM.Nome);
 				}
+				Lista = DescA.Inicio;
+				while(strcmp(Lista->Nome,ListaM.Nome) != 0) {
+					Lista = Lista -> Prox;
+				}
+				
+				printf("Digite o Nome da Materia: ");
+				fflush(stdin);
+				gets(ListaM.Materia);
+				while(strcmp(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,ListaM.Materia)==0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
+					printf("Digite o Nome da Materia: ");
+					fflush(stdin);
+					gets(ListaM.Materia);
+				}
 				printf("\nDigite a nota do primeiro bim: ");
 				scanf("%f",&ListaM.Nota0);
 				printf("\nDigite a nota do segundo bim: ");
 				scanf("%f",&ListaM.Nota2);
 				printf("\nDigite a frequencia do aluno: ");
 				scanf("%d",&ListaM.Frequencia);
-	
-				Lista = DescA.Inicio;
-				while(strcmp(Lista->Nome,ListaM.Nome) != 0) {
-					Lista = Lista -> Prox;
-				}
-				
+
 				AdcionarMaterias(ListaM,Lista->DescM);
 			break;
 			case 'G':
