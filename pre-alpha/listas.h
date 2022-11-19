@@ -90,29 +90,16 @@ TpAlunos BuscarAlunos(char Nome[], TpDescritorA Desc) {
 
 
 //Caixa Alunos
-TpAlunos *NovaCaixa(char Nome[]){
+TpAlunos *NovaCaixa(TpAlunos alunos){
 	TpAlunos *Caixa = new TpAlunos;
-    char aux[30];
-	
 
-	strcpy(Caixa -> Nome, Nome);
-    printf("\nDigite o Curso: ");
-    gets(aux);
-    strcpy(Caixa -> Curso,aux);
-    printf("\nDigite a Cidade: ");
-    gets(aux);
-    strcpy(Caixa -> Cidade,aux);
-    printf("\nDigite o Bairro: ");
-    gets(aux);
-    strcpy(Caixa -> Bairro,aux);
-    printf("\nDigite a Rua: ");
-    gets(aux);
-    strcpy(Caixa -> Rua,aux);
-    printf("\nDigite o Estado: ");
-    gets(aux);
-    strcpy(Caixa -> Estado,aux);
-    printf("\nDigite o Endereco: ");
-    scanf("%d",&Caixa -> Endereco);
+	strcpy(Caixa -> Nome, alunos.Nome);
+    strcpy(Caixa -> Curso,alunos.Curso);
+    strcpy(Caixa -> Cidade,alunos.Cidade);
+    strcpy(Caixa -> Bairro,alunos.Bairro);
+    strcpy(Caixa -> Rua,alunos.Rua);
+    strcpy(Caixa -> Estado,alunos.Estado);
+    Caixa -> Endereco = alunos.Endereco;
     IniciarDescM(Caixa->DescM);
     Caixa -> Prox = Caixa -> Ant = NULL;
    
@@ -121,8 +108,8 @@ TpAlunos *NovaCaixa(char Nome[]){
 
 
 //Adciona alunos
-void AdcionarAlunos(TpDescritorA &Desc, char Nome[]){
-    TpAlunos *NC = NovaCaixa(Nome), *P;
+void AdcionarAlunos(TpDescritorA &Desc, TpAlunos alunos){
+    TpAlunos *NC = NovaCaixa(alunos), *P;
 
 	Desc.Qtde++;
 
@@ -283,40 +270,24 @@ TpMateria BuscarNotas(TpDescritorM Desc, char Materia[]) {
 }
 
 //Caixa Materias
-TpMateria *NovaCaixaM(char Materia[]){
+TpMateria *NovaCaixaM(TpMateria Mat){
 	TpMateria *Caixa = new TpMateria;
     
-    int aux;
-	float aux1;
-
-	strcpy(Caixa -> Materia, Materia);
-    printf("\nDigite a nota do primeiro bim: ");
-    scanf("%f",&aux1);
-    Caixa -> Nota0 = aux1;
-    printf("\nDigite a nota do segundo bim: ");
-    scanf("%f",&aux1);
-    Caixa -> Nota2 = aux1;
-    printf("\nDigite a frequencia do aluno: ");
-    scanf("%d",&aux);
-    Caixa -> Frequencia = aux;
+	strcpy(Caixa -> Materia, Mat.Materia);
+    Caixa -> Nota0 = Mat.Nota0;
+    Caixa -> Nota2 = Mat.Nota2;
+    Caixa -> Frequencia = Mat.Frequencia;
 
     Caixa -> prox = NULL;
 	return Caixa;  
 }
 
 //Adciona Materias 
-void AdcionarMaterias(TpDescritorM &Desc){
+void AdcionarMaterias(TpMateria materia,TpDescritorM &Desc){
     TpMateria *NC;
     Desc.Qtde++;
 
-    char auxC[20];
-
-    system("cls");
-    printf("\nDigite o Nome da materia: "); 
-    fflush(stdin);
-    gets(auxC);
- 
-    NC = NovaCaixaM(auxC);
+    NC = NovaCaixaM(materia);
 
     if(Desc.Inicio == NULL){//vazio
         Desc.Inicio = Desc.Fim = NC;
