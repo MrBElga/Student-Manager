@@ -42,17 +42,17 @@ void IniciarDescM(TpDescritorA &DescM);
 
 TpAlunos BuscarAlunos(char Nome[], TpDescritorA Desc);
 TpAlunos *NovaCaixa(char Nome[]);
-void AdcionarAlunos(TpAlunos Lista, TpDescritorA &Desc, char Nome[]);
+void AdcionarAlunos(TpDescritorA &Desc, char Nome[]);
 void ExcluirAlunos(char Nome[], TpDescritorA &Desc);
-void AlterarAluno(char nome[], TpDescritorA &Desc, TpAlunos Alunos);
+void AlterarAluno(char nome[], TpDescritorA &Desc);
 void ConsultarAluno(TpDescritorA Desc, char Nome[]);
 void exibirAlunos(TpDescritorA Desc);
 
 TpMateria BuscarNotas(TpMateria ListaN, char Materia[]);
 TpMateria *NovaCaixaM(char Materia[]);
-void AdcionarMaterias(TpMateria materias,TpDescritorM &Desc);
+void AdcionarMaterias(TpDescritorM &Desc);
 void ExcluirMateria(char nome[], TpDescritorM &DescM);
-void AlterarMateria(char materia[], TpDescritorM &Desc, TpMateria materias);
+void AlterarMateria(char materia[], TpDescritorM &Desc);
 void ConsultarMateria(TpDescritorA Desc, char Nome[]);
 void ExibirMaterias(TpDescritorA Desc);
 
@@ -393,7 +393,7 @@ void ConsultarMateria(TpDescritorA Desc, char Nome[]){
             printf("-------%s-------\n",ListaN -> Materia);
             printf("%.2f\n",ListaN -> Nota0);
             printf("%.2f\n",ListaN -> Nota2);
-            printf("%d\n",ListaN -> Frequencia);
+            printf("%d%\n",ListaN -> Frequencia);
             ListaN = ListaN -> prox;
         }
     }
@@ -415,7 +415,7 @@ void ExibirMaterias(TpDescritorA Desc){
               printf("\n-----%s-----",ListaN->Materia);
               printf("\n%.2f",ListaN->Nota0);
              printf("\n%.2f",ListaN->Nota2);
-             printf("\n%d",ListaN->Frequencia);
+             printf("\n%d%",ListaN->Frequencia);
              ListaN = ListaN->prox;
         }
         

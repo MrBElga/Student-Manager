@@ -69,7 +69,7 @@ int main(void){
 	
 	
 
-	char op,aux[30],aux2[30];
+	char op,op2,aux[30],aux2[30],aux3[20];
 	IniciarDescA(DescA);
 	
 
@@ -132,9 +132,9 @@ int main(void){
 				}
 					system("cls");
 					Reg=BuscarAlunos(aux,DescA);
-					op = menualt();
+					op2 = menualt();
 					system("cls");
-					switch(op)
+					switch(op2)
 					{
 						case 'A':
 							printf("Digite o Novo Nome do Aluno: ");
@@ -245,66 +245,66 @@ int main(void){
 			break;
 			case 'H':
 				system("cls");
-				printf("## ALTERAR ATERIAS ##\n");
+				printf("## ALTERAR MATERIAS ##\n");
 				printf("Digite o Nome do Aluno: ");
 				fflush(stdin);
 				gets(aux);
-
 				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
 					printf("Digite o Nome do Aluno: ");
 					fflush(stdin);
 					gets(aux);
 				}
-				while(strcmp(Lista->Nome,aux)!=0)
-					Lista = Lista->Prox;
+
+			
 				printf("Digite o Nome da materia: ");
 				fflush(stdin);
-				gets(aux2);
-				while(strcmp(BuscarNotas(Lista->DescM,aux2).Materia,aux2)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
+				gets(aux3);
+				while(strcmp(BuscarNotas(Lista->DescM,aux3).Materia,aux3)!=0 || strcmp(aux3," ")==0 || aux3[0]=='\0'){
 					printf("Digite o Nome da materia: ");
 					fflush(stdin);
-					gets(aux2);
+					gets(aux3);
 				}
-				ListaM = BuscarNotas(Lista->DescM,aux2);
+				RegM = BuscarNotas(Lista->DescM,aux3);
 					system("cls");
 				
-					op = menualtM();
+					op2 = menualtM();
 					system("cls");
-					switch(op)
+					switch(op2)
 					{
 						case 'A':
-							printf("\nDigite o novo nome da materia: ");
+							printf("Digite o novo nome da materia: ");
 							fflush(stdin);
-							gets(aux);
-							strcpy(RegM.Materia,aux);
-							RegM.Nota0 = ListaM.Nota0;
-							RegM.Nota2 = ListaM.Nota2;
-							RegM.Frequencia = ListaM.Frequencia;
+							gets(aux3);
+							strcpy(ListaM.Materia,aux3);
+							ListaM.Nota0 = RegM.Nota0;
+							ListaM.Nota2 = RegM.Nota2;
+							ListaM.Frequencia = RegM.Frequencia;
 						break;
 						case 'B':
-							strcpy(RegM.Materia, ListaM.Materia);
+							strcpy(ListaM.Materia,RegM.Materia);
 							printf("Digite a Nota do primeiro bim: ");
-							scanf("%f",&RegM.Nota0);
-							RegM.Nota2 = ListaM.Nota2;
-							RegM.Frequencia = ListaM.Frequencia;
+							scanf("%f",&ListaM.Nota0);
+							ListaM.Nota2 = 	RegM.Nota2;
+							ListaM.Frequencia = RegM.Frequencia;
 						break;
 						case 'C':
-							strcpy(RegM.Materia, ListaM.Materia);
-							RegM.Nota0 = ListaM.Nota0;
+							strcpy(ListaM.Materia,RegM.Materia);
+							ListaM.Nota0 = RegM.Nota0;
 							printf("Digite a Nota do segundo bim: ");
-							scanf("%f",&RegM.Nota2);
-							RegM.Frequencia = ListaM.Frequencia;
+							scanf("%f",&ListaM.Nota2);
+							ListaM.Frequencia = RegM.Frequencia;
 				
 						break;	
 						case 'D':
 							strcpy(RegM.Materia, ListaM.Materia);
-							RegM.Nota0 = ListaM.Nota0;
-							RegM.Nota2 = ListaM.Nota2;
-							printf("Digite a Nota do segundo bim: ");
-							scanf("%d",&RegM.Frequencia);
+							ListaM.Nota0 = RegM.Nota0;
+							ListaM.Nota2 = RegM.Nota2;
+							printf("Digite a Frequencia: ");
+							scanf("%d",&ListaM.Frequencia);
 						break;
-						AlterarMateria(aux2,Lista->DescM,RegM);
+					
 					}
+					AlterarMateria(RegM.Materia,Lista->DescM,ListaM);
 			break;
 			case 'I':
 				system("cls");
@@ -332,14 +332,14 @@ int main(void){
 				}
 				printf("Digite o Nome da materia: ");
 				fflush(stdin);
-				gets(aux2);
-				while(strcmp(BuscarNotas(Lista->DescM,aux2).Materia,aux2)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
+				gets(aux3);
+				while(strcmp(BuscarNotas(Lista->DescM,aux3).Materia,aux3)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
 					printf("Digite o Nome da materia: ");
 					fflush(stdin);
-					gets(aux2);
+					gets(aux3);
 				}
 
-				ExcluirMateria(BuscarNotas(Lista->DescM,aux2).Materia,Lista->DescM);
+				ExcluirMateria(BuscarNotas(Lista->DescM,aux3).Materia,Lista->DescM);
 				//BuscarNotas();
 			break;
 		}
