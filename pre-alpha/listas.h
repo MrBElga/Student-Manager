@@ -13,7 +13,7 @@
 
 
 struct TpMateria{
-    char Materia[20];
+    char Materia[20],Nome[30];
     int Frequencia;
     float Nota0, Nota2;
     TpMateria *prox;
@@ -274,6 +274,7 @@ TpMateria *NovaCaixaM(TpMateria Mat){
 	TpMateria *Caixa = new TpMateria;
     
 	strcpy(Caixa -> Materia, Mat.Materia);
+	strcpy(Caixa ->Nome, Mat.Nome);
     Caixa -> Nota0 = Mat.Nota0;
     Caixa -> Nota2 = Mat.Nota2;
     Caixa -> Frequencia = Mat.Frequencia;
