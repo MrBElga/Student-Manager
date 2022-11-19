@@ -14,6 +14,84 @@ char alunoValido(char Nome[], TpDescritorA Desc) {
 	return 1;
 }
 
+void recuperarDadosAlunos(TpDescritorA &Desc, FILE *ptrArqMat){
+	TpAlunos Reg;
+
+	fscanf(ptrArqMat,"%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%d\n",&Reg.Nome,&Reg.Curso,&Reg.Cidade,&Reg.Bairro,&Reg.Rua,&Reg.Estado,&Reg.Endereco);
+	while(!feof(ptrArqMat)){
+		AdcionarAlunos(Desc,Reg);
+		fscanf(ptrArqMat,"%[^;];%[^;];%[^;];%[^;];%[^;];%[^;];%d\n",&Reg.Nome,&Reg.Curso,&Reg.Cidade,&Reg.Bairro,&Reg.Rua,&Reg.Estado,&Reg.Endereco);
+	}
+	AdcionarAlunos(Desc,Reg);
+}
+
+void recuperarDadosMaterias(TpDescritorM &DescM, TpDescritorA &Desc,FILE *ptrArq){
+	TpMateria Reg;
+	TpAlunos *listaAlunos;
+	
+	fscanf(ptrArq,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
+
+	listaAlunos = Desc.Inicio; 
+	while(strcmp(listaAlunos -> Nome,Reg.Nome) != 0) {
+		listaAlunos = listaAlunos -> Prox;
+	}
+
+	while(!feof(ptrArq)){
+		
+		AdcionarMaterias(Reg,DescM);
+		fscanf(ptrArq,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
+	}
+	AdcionarMaterias(Reg,DescM);
+}
+
+void verificarArquivo(TpDescritorA &Desc){
+	FILE *ptrArq;
+	TpAlunos *listaAlunos;
+	TpMateria *listaMaterias;
+	TpDescritorM DescM;
+
+	ptrArq = fopen("Alunos.txt","r");
+	if(ptrArq != NULL) {
+		recuperarDadosAlunos(Desc, ptrArq);
+	}
+	fclose(ptrArq);
+	
+	listaAlunos = Desc.Inicio;
+	ptrArq = fopen("Materias.txt","r");
+	if(ptrArq != NULL){		
+		recuperarDadosMaterias(listaAlunos -> DescM, Desc, ptrArq);		
+	}
+	fclose(ptrArq);
+	
+} 
+
+void guadarDados(TpDescritorA &Desc){
+	FILE *Alu = fopen("Alunos.txt","w");
+	FILE *Mat = fopen("Materias.txt","w");
+	
+	TpAlunos *lista = Desc.Inicio;
+	TpMateria *listaMat;
+
+	
+	while(lista != NULL) {
+		fprintf(Alu,"%s;%s;%s;%s;%s;%s;%d\n",lista->Nome,lista->Curso,lista->Cidade,lista->Bairro,lista->Rua,lista->Estado,lista->Endereco);
+		
+		listaMat= lista -> DescM.Inicio;
+		
+		while(listaMat != NULL) {
+			fprintf(Mat,"%s;%s;%.2f;%.2f;%d\n",listaMat->Nome,listaMat -> Materia,listaMat ->Nota0, listaMat ->Nota2,listaMat->Frequencia);
+			
+						
+			listaMat = listaMat -> prox;
+		}
+		
+		lista = lista -> Prox;
+	}
+	
+	fclose(Alu);
+	fclose(Mat);
+} 
+
 char menualt(){
 	system("cls");
 	printf("[A] - 	ALTERAR NOME\n");
@@ -41,39 +119,42 @@ char menualtM(){
 }
 char menu (){
 	system("cls");
+	printf("----------------------------------\n");
+	printf("########## ALUNOS ########## \n" );
 	printf("[A] - 	CADASTRAR ALUNOS\n");
 	printf("[B] - 	EXCLUIR ALUNOS\n");
 	printf("[C] - 	CONSULTAR ALUNOS\n");
 	printf("[D] - 	ALTERAR ALUNOS\n");
 	printf("[E] -  	EXIBIR ALUNOS\n");
+	printf("----------------------------------\n");
+	printf("########## MATERIAS ########## \n");
 	printf("[F] -  	CADASTRAS NOTA\n");
 	printf("[G] -  	EXIBIR NOTAS\n");
 	printf("[H] - 	ALTERAR NOTAS DE UM ALUNO\n");
 	printf("[I] -  	CONSULTAR NOTAS DE UM ALUNO\n");
 	printf("[J] - 	EXCLUIR NOTAS\n");
-	printf("[ESC] - FINALIZAR\n");
+	printf("----------------------------------\n");
+	printf("########## RELATORIOS ########## \n");
+	printf("[K] -  	NOTAS DE UMA MATERIA\n");
+	printf("[L] -  	ALUNOS COM REPROVAS\n");
+	printf("----------------------------------\n");
+	printf("[ESC] - FINALIZAR\n\n");
+	
 	printf("OPCAO: ");
 
 	return toupper(getch());
 }
-
-
 
 int main(void){
 	TpAlunos ListaA,*Lista,Reg;
 	TpMateria ListaM,RegM;
 	TpDescritorA DescA;
 
-
-
-	
-	
-
 	char op,op2,aux[30],aux2[30],aux3[20];
 	IniciarDescA(DescA);
 	
 
-	//VerificarArquivo(DescA);
+	verificarArquivo(DescA);
 	
 	do{
 		
@@ -86,13 +167,25 @@ int main(void){
 				printf("\n## CADASTRO DE ALUNOS ##\n");
 				printf("Digite o Nome do Aluno: ");
 				fflush(stdin);
-				gets(aux);
-				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)==0 || strcmp(aux," ")==0 || aux[0]=='\0'){
+				gets(Reg.Nome);
+				while(strcmp(BuscarAlunos(Reg.Nome,DescA).Nome,Reg.Nome)==0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					printf("Digite o Nome do Aluno: ");
 					fflush(stdin);
-					gets(aux);
+					gets(Reg.Nome);
 				}
-				AdcionarAlunos(DescA, aux);
+				printf("\nDigite o Curso: ");fflush(stdin);
+				gets(Reg.Curso);
+				printf("\nDigite a Cidade: ");fflush(stdin);
+				gets(Reg.Cidade);
+				printf("\nDigite o Bairro: ");fflush(stdin);
+				gets(Reg.Bairro);
+				printf("\nDigite a Rua: ");fflush(stdin);
+				gets(Reg.Rua);
+				printf("\nDigite o Estado: ");fflush(stdin);
+				gets(Reg.Estado);
+				printf("\nDigite o Endereco: ");
+				scanf("%d",&Reg.Endereco);
+				AdcionarAlunos(DescA, Reg);
 			break;
 			case 'B':
 				system("cls");
@@ -225,19 +318,25 @@ int main(void){
 				printf("## CADASTRAR MATERIAS ##\n");
 				printf("Digite o Nome do Aluno: ");
 				fflush(stdin);
-				gets(aux);
-				while(strcmp(BuscarAlunos(aux,DescA).Nome,aux)!=0 || strcmp(aux," ")==0 || aux[0]=='\0'){
+				gets(ListaM.Nome);
+				while(strcmp(BuscarAlunos(ListaM.Nome,DescA).Nome,ListaM.Nome)!=0 || strcmp(ListaM.Nome," ")==0 || ListaM.Nome[0]=='\0'){
 					printf("Digite o Nome do Aluno: ");
 					fflush(stdin);
-					gets(aux);
+					gets(ListaM.Nome);
 				}
-
+				printf("\nDigite a nota do primeiro bim: ");
+				scanf("%f",&ListaM.Nota0);
+				printf("\nDigite a nota do segundo bim: ");
+				scanf("%f",&ListaM.Nota2);
+				printf("\nDigite a frequencia do aluno: ");
+				scanf("%d",&ListaM.Frequencia);
+	
 				Lista = DescA.Inicio;
-				while(strcmp(Lista->Nome,aux) != 0) {
+				while(strcmp(Lista->Nome,ListaM.Nome) != 0) {
 					Lista = Lista -> Prox;
 				}
 				
-				AdcionarMaterias(Lista->DescM);
+				AdcionarMaterias(ListaM,Lista->DescM);
 			break;
 			case 'G':
 				system("cls");
@@ -340,11 +439,11 @@ int main(void){
 				}
 
 				ExcluirMateria(BuscarNotas(Lista->DescM,aux3).Materia,Lista->DescM);
-				//BuscarNotas();
 			break;
 		}
 		
 	}while(op!=27);
-	//GuadarDados(DescA);
+
+	guadarDados(DescA);
 	return 0;
 }
