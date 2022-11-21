@@ -26,22 +26,26 @@ void recuperarDadosAlunos(TpDescritorA &Desc, FILE *ptrArqMat){
 }
 
 void recuperarDadosMaterias(TpDescritorM &DescM, TpDescritorA &Desc,FILE *ptrArqMat){
-	TpMateria Reg;
+	TpMateria Reg,*Lista;
 	TpAlunos *listaAlunos;
 
 	fscanf(ptrArqMat,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
-
+	while(!feof(ptrArqMat)){
+		listaAlunos = Desc.Inicio; 
+		while(strcmp(listaAlunos->Nome,Reg.Nome) != 0) {
+			listaAlunos = listaAlunos -> Prox;
+		}
+	
+		AdcionarMaterias(Reg,listaAlunos->DescM);
+		fscanf(ptrArqMat,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
+	}
 	listaAlunos = Desc.Inicio; 
-
 	while(strcmp(listaAlunos->Nome,Reg.Nome) != 0) {
 		listaAlunos = listaAlunos -> Prox;
 	}
-		
-	while(!feof(ptrArqMat)){
-		AdcionarMaterias(Reg,DescM);
-		fscanf(ptrArqMat,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
-	}
-	AdcionarMaterias(Reg,DescM);
+	AdcionarMaterias(Reg,listaAlunos->DescM);
+	
+
 }
 
 void verificarArquivo(TpDescritorA &Desc){
@@ -389,7 +393,13 @@ int main(void){
 
 				ExcluirMateria(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,Lista->DescM);
 			break;
-			case 'K':system("cls");
+			case 'K':
+				system("cls");
+				getMateria(ListaM);
+				RelatorioM(DescA,ListaM.Materia);
+				getch();
+			break;
+			case 'L':system("cls");
 				printf("### Relatorio ###\n\n");
 				Relatorio(DescA);
 				getch();

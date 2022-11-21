@@ -463,22 +463,49 @@ TpMateria getFrequencia(TpMateria &Reg){
  void Relatorio(TpDescritorA Desc){
     TpAlunos *Lista = Desc.Inicio;
     TpMateria *ListaN;
-	float media;
+	float media=0;
+	
     while(Lista != NULL){
-        printf("Aluno: %s \n", Lista -> Nome);
+        printf("-----Aluno: %s----- \n", Lista -> Nome);
+        
         ListaN = Lista->DescM.Inicio;
         while(ListaN != NULL){
-			  media = (ListaN->Nota0 + ListaN->Nota2)/2;
-			  printf("%.2f \n",media);
-			 if(media >=6 )
-			 	printf("\nAprovado\n");
-			else
-				printf("\nReprovado\n");
-             ListaN = ListaN->prox;
-			 media =0;
+        	if(strcmp(ListaN->Nome,Lista->Nome)==0){
+        	
+	        	printf("%s\n",ListaN->Materia);
+				media = (ListaN->Nota0 + ListaN->Nota2)/2;
+				printf("%.2f \n",media);
+				
+				if(media >=6 )
+				 	printf("Aprovado\n");
+				else
+					printf("Reprovado\n");
+			
+	          
+				media = 0;
+			}
+			ListaN = ListaN->prox;
         }
-        printf("\n");
+        printf("\n");	
+	
         Lista = Lista->Prox;
     }
     getch();
+ }
+ 
+ void RelatorioM(TpDescritorA Desc, char Mat[]){
+ 	    TpAlunos *Lista = Desc.Inicio;
+ 	    TpMateria *ListaN;
+ 	    while(Lista != NULL){
+ 	    	ListaN = Lista->DescM.Inicio;
+ 	    	while(ListaN != NULL){
+ 	    		if(strcmp(ListaN->Materia,Mat)==0){
+ 	    			printf("------%s------\n",ListaN->Nome);
+ 	    			printf("%.2f\n",ListaN->Nota0);
+ 	    			printf("%.2f\n\n",ListaN->Nota2);
+ 	    		}
+ 	    		ListaN = ListaN->prox;
+ 	    	}
+ 	    	Lista = Lista->Prox;
+ 	    }
  }
