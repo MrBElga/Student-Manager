@@ -6,12 +6,6 @@
 #include <time.h>
 #include <string.h>
 
-
-// ##################################################
-// # STRUCTS E FUNCOES PARA MANIPULACAO DAS LISTAS  #
-// ##################################################
-
-
 struct TpMateria{
     char Materia[20],Nome[30];
     int Frequencia;
@@ -43,21 +37,34 @@ void IniciarDescM(TpDescritorA &DescM);
 
 //ALUNOS
 TpAlunos BuscarAlunos(char Nome[], TpDescritorA Desc);
-TpAlunos *NovaCaixa(char Nome[]);
-void AdcionarAlunos(TpDescritorA &Desc, char Nome[]);
+TpAlunos *NovaCaixa(TpAlunos alunos);
+void AdcionarAlunos(TpDescritorA &Desc, TpAlunos alunos);
 void ExcluirAlunos(char Nome[], TpDescritorA &Desc);
-void AlterarAluno(char nome[], TpDescritorA &Desc);
+void AlterarAluno(char nome[], TpDescritorA &Desc, TpAlunos Alunos);
 void ConsultarAluno(TpDescritorA Desc, char Nome[]);
-void exibirAlunos(TpDescritorA Desc);
 
 //MATERIAS
-TpMateria BuscarNotas(TpMateria ListaN, char Materia[]);
-TpMateria *NovaCaixaM(char Materia[]);
-void AdcionarMaterias(TpDescritorM &Desc);
+TpMateria BuscarNotas(TpDescritorM Desc, char Materia[]);
+TpMateria *NovaCaixaM(TpMateria Mat);
+void AdcionarMaterias(TpMateria materia,TpDescritorM &Desc);
 void ExcluirMateria(char nome[], TpDescritorM &DescM);
-void AlterarMateria(char materia[], TpDescritorM &Desc);
+void AlterarMateria(char materia[], TpDescritorM &Desc, TpMateria materias);
 void ConsultarMateria(TpDescritorA Desc, char Nome[]);
 void ExibirMaterias(TpDescritorA Desc);
+
+//getters
+TpAlunos getNome(TpAlunos &Reg);
+TpAlunos getCurso(TpAlunos &Reg);
+TpAlunos getCidade(TpAlunos &Reg);
+TpAlunos getBairro(TpAlunos &Reg);
+TpAlunos getRua(TpAlunos &Reg);
+TpAlunos getEstado(TpAlunos &Reg);
+TpAlunos getData(TpAlunos &Reg);
+TpAlunos getEndereco(TpAlunos &Reg);
+TpMateria getMateria(TpMateria &Reg);
+TpMateria getNota0(TpMateria &Reg);
+TpMateria getNota2(TpMateria &Reg);
+TpMateria getFrequencia(TpMateria &Reg);
 
 //INICIO DOS DESCRITOR
 void IniciarDescA(TpDescritorA &DescA){
@@ -76,11 +83,9 @@ TpAlunos BuscarAlunos(char Nome[], TpDescritorA Desc) {
 	
 	strcpy(reg.Nome, "");
 	lista = Desc.Inicio;
-	
 	while(lista != NULL && strcmp(Nome,lista -> Nome) != 0) {
 		lista = lista -> Prox;
 	}
-	
 	if(lista != NULL) {
 		reg = *lista;
 	}
@@ -100,9 +105,11 @@ TpAlunos *NovaCaixa(TpAlunos alunos){
     strcpy(Caixa -> Rua,alunos.Rua);
     strcpy(Caixa -> Estado,alunos.Estado);
     Caixa -> Endereco = alunos.Endereco;
+	Caixa -> Dia = alunos.Dia;
+	Caixa -> Mes = alunos.Mes;
+	Caixa -> Ano = alunos.Ano; 
     IniciarDescM(Caixa->DescM);
     Caixa -> Prox = Caixa -> Ant = NULL;
-   
 	return Caixa;  
 }
 
@@ -153,34 +160,28 @@ void ExcluirAlunos(char Nome[], TpDescritorA &Desc) {
 		ExcluirMateria(auxN->Materia,aux->DescM);
 		auxN = auxN->prox;
 	}
-	
 	if(Desc.Qtde == 0) {
 		aux = Desc.Inicio; 
 		Desc.Inicio = Desc.Fim = NULL;
 		delete(aux);
 	}
-	else if(strcmp(Desc.Inicio ->  Nome, Nome) == 0) {
-		//inicio
+	else if(strcmp(Desc.Inicio ->  Nome, Nome) == 0){//inicio
 		aux = Desc.Inicio; 
 		aux -> Prox -> Ant = NULL;
 		Desc.Inicio = aux -> Prox;
 		delete(aux);
 	}
-	else if(strcmp(Desc.Fim ->  Nome, Nome) == 0) {
-		//fim
+	else if(strcmp(Desc.Fim ->  Nome, Nome) == 0){//fim
 		aux = Desc.Fim; 
 		aux -> Ant -> Prox = NULL;
 	    Desc.Fim = aux -> Ant;
 		delete(aux);
 	}
-	else {
-		//meio
+	else {//meio
 		aux = Desc.Inicio -> Prox; 
-		
-		while(strcmp(aux -> Nome, Nome) != 0) {
+		while(strcmp(aux -> Nome, Nome) != 0){
 			aux = aux -> Prox;
-		}
-		
+		}	
 		aux -> Prox -> Ant = aux -> Ant;
 		aux -> Ant -> Prox = aux -> Prox;
 		delete(aux);
@@ -191,11 +192,9 @@ void ExcluirAlunos(char Nome[], TpDescritorA &Desc) {
 // Alterar Aluno
 void AlterarAluno(char nome[], TpDescritorA &Desc, TpAlunos Alunos) {
 	TpAlunos *lista = Desc.Inicio;
-
 	while(strcmp(lista -> Nome, nome)!= 0) {
 		lista = lista -> Prox;
 	}
-	
 	strcpy(lista -> Nome, Alunos.Nome);
 	strcpy(lista -> Curso, Alunos.Curso);
 	strcpy(lista -> Cidade, Alunos.Cidade);
@@ -203,16 +202,9 @@ void AlterarAluno(char nome[], TpDescritorA &Desc, TpAlunos Alunos) {
 	strcpy(lista -> Rua, Alunos.Rua);
 	strcpy(lista -> Estado, Alunos.Estado);
     lista->Endereco = Alunos.Endereco;
-	//Daniel Elias Fonseca Rumin
-    //Ciencia da Computacao
-    //Alfredo Marcondes 
-    //Benak 
-    //Estrada Municipal
-    //SaoPaulo
-    //3
-	// alterar usuarios no servidor
-
-	
+	lista->Dia = Alunos.Dia;
+	lista->Mes = Alunos.Mes;
+	lista->Ano = Alunos.Ano;
 }
 
 //Consultar Alunos  
@@ -228,7 +220,9 @@ void ConsultarAluno(TpDescritorA Desc, char Nome[]){
         printf("%s\n",Lista -> Rua);
         printf("%s\n",Lista -> Bairro);
         printf("%s\n",Lista -> Cidade);
-        printf("%d\n\n",Lista -> Endereco);
+        printf("%d\n",Lista -> Endereco);
+	 	printf("%d/%d/%d\n\n",Lista -> Dia, Lista -> Mes, Lista -> Ano);
+	;
     }
     else
         printf("\nAluno nao encontrado");
@@ -240,14 +234,13 @@ void exibirAlunos(TpDescritorA Desc) {
 	TpAlunos *lista = Desc.Inicio;
 	printf("## ALUNO(S) ##\n");
 	while(lista != NULL) {
-		
 		printf("-------%s-------\n",lista -> Nome);
         printf("%s\n",lista -> Curso);
         printf("%s\n",lista -> Rua);
         printf("%s\n",lista -> Bairro);
         printf("%s\n",lista -> Cidade);
-        printf("%d\n\n",lista -> Endereco);
-     
+        printf("%d\n",lista -> Endereco);
+		printf("%d/%d/%d\n\n",lista -> Dia, lista -> Mes, lista -> Ano);
 		lista = lista -> Prox;
 	}
 	getch();
@@ -262,7 +255,6 @@ TpMateria BuscarNotas(TpDescritorM Desc, char Materia[]) {
 	while(lista != NULL && strcmp(Materia,lista->Materia) != 0) {
 		lista = lista -> prox;
 	}
-	
 	if(lista != NULL) {
 		reg = *lista;
 	}
@@ -278,7 +270,6 @@ TpMateria *NovaCaixaM(TpMateria Mat){
     Caixa -> Nota0 = Mat.Nota0;
     Caixa -> Nota2 = Mat.Nota2;
     Caixa -> Frequencia = Mat.Frequencia;
-
     Caixa -> prox = NULL;
 	return Caixa;  
 }
@@ -289,7 +280,6 @@ void AdcionarMaterias(TpMateria materia,TpDescritorM &Desc){
     Desc.Qtde++;
 
     NC = NovaCaixaM(materia);
-
     if(Desc.Inicio == NULL){//vazio
         Desc.Inicio = Desc.Fim = NC;
     }
@@ -305,33 +295,28 @@ void ExcluirMateria(char nome[], TpDescritorM &DescM){
 	DescM.Qtde--; 
 	
 	aux = DescM.Inicio;
-	
 	while(strcmp(aux ->Materia,nome) != 0) {
         ant = aux;
 		aux = aux -> prox;
 	}
-	
 	//deletar Materias
 	if(DescM.Qtde == 0) {
 		aux = DescM.Inicio; 
 		DescM.Inicio =  DescM.Fim = NULL;
 		delete(aux);
 	}
-	else if(strcmp(DescM.Inicio ->Materia,nome) == 0) {
-		//inicio
+	else if(strcmp(DescM.Inicio ->Materia,nome) == 0) {//inicio
 		aux = DescM.Inicio; 
 		DescM.Inicio = aux -> prox;
 		delete(aux);
 	}
-	else if(strcmp(DescM.Fim -> Materia,nome) == 0) {
-		//fim
+	else if(strcmp(DescM.Fim -> Materia,nome) == 0) {//fim
 		ant = DescM.Fim; 
 		ant -> prox = NULL;
 		DescM.Fim = ant;
 		delete(aux);
 	}
-	else {
-		//meio
+	else {//meio
 		aux = DescM.Inicio -> prox; 
 		
 		while(strcmp(aux -> Materia,nome) != 0) {
@@ -349,7 +334,6 @@ void AlterarMateria(char materia[], TpDescritorM &Desc, TpMateria materias) {
 	while(strcmp(lista -> Materia, materia)!= 0) {
 		lista = lista -> prox;
 	}
-
 	strcpy(lista -> Materia, materias.Materia);
 	lista -> Nota0 = materias.Nota0;
 	lista -> Nota2 = materias.Nota2;
@@ -387,18 +371,95 @@ void ExibirMaterias(TpDescritorA Desc){
         printf("Aluno: %s", Lista -> Nome);
         ListaN = Lista->DescM.Inicio;
         while(ListaN != NULL){
-              printf("\n-----%s-----",ListaN->Materia);
-              printf("\n%.2f",ListaN->Nota0);
+             printf("\n-----%s-----",ListaN->Materia);
+             printf("\n%.2f",ListaN->Nota0);
              printf("\n%.2f",ListaN->Nota2);
              printf("\n%d%",ListaN->Frequencia);
              ListaN = ListaN->prox;
         }
-        
         printf("\n");
         Lista = Lista->Prox;
     }
     getch();
  }
+ 
+TpAlunos getNome(TpAlunos &Reg){
+	printf("Digite o Nome do Aluno: ");
+	fflush(stdin);
+	gets(Reg.Nome);
+	return Reg;
+}
+
+TpAlunos getCurso(TpAlunos &Reg){
+	printf("\nDigite o Curso: ");fflush(stdin);
+	gets(Reg.Curso);
+	return Reg;
+}
+
+TpAlunos getCidade(TpAlunos &Reg){
+	printf("\nDigite a Cidade: ");fflush(stdin);
+	gets(Reg.Cidade);
+}
+
+TpAlunos getBairro(TpAlunos &Reg){
+	printf("\nDigite o Bairro: ");fflush(stdin);
+	gets(Reg.Bairro);
+	return Reg;
+}
+
+TpAlunos getRua(TpAlunos &Reg){
+	printf("\nDigite a Rua: ");fflush(stdin);
+	gets(Reg.Rua);
+	return Reg;
+}
+
+TpAlunos getEstado(TpAlunos &Reg){
+	printf("\nDigite o Estado: ");fflush(stdin);
+	gets(Reg.Estado);
+		return Reg;
+}
+
+TpAlunos getEndereco(TpAlunos &Reg){
+	printf("\nDigite o Endereco: ");
+	scanf("%d",&Reg.Endereco);
+	return Reg;
+}
+
+TpAlunos getData(TpAlunos &Reg){
+	printf("Digite o Dia: ");
+	scanf("%d",&Reg.Dia);
+	printf("Digite o Mes: ");
+	scanf("%d",&Reg.Mes);
+	printf("Digite o Ano: ");
+	scanf("%d",&Reg.Ano);
+	return Reg;
+}
+
+TpMateria getMateria(TpMateria &Reg){
+	printf("Digite o Nome da Materia: ");
+	fflush(stdin);
+	gets(Reg.Materia);
+	return Reg;
+}
+
+TpMateria getNota0(TpMateria &Reg){
+	printf("Digite a nota do primeiro bim: ");
+	scanf("%f", &Reg.Nota0);
+	return Reg;
+}
+
+TpMateria getNota2(TpMateria &Reg){
+	printf("Digite a nota do segundo bim: ");
+	scanf("%f", &Reg.Nota2);
+	return Reg;
+}
+
+TpMateria getFrequencia(TpMateria &Reg){
+	printf("Digite a frequencia: ");
+	scanf("%f", &Reg.Frequencia);
+	return Reg;
+}
+
  void Relatorio(TpDescritorA Desc){
     TpAlunos *Lista = Desc.Inicio;
     TpMateria *ListaN;
@@ -416,7 +477,6 @@ void ExibirMaterias(TpDescritorA Desc){
              ListaN = ListaN->prox;
 			 media =0;
         }
-        
         printf("\n");
         Lista = Lista->Prox;
     }
