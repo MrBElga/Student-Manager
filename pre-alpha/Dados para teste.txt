@@ -1,7 +1,7 @@
 Daniel Elias Fonseca Rumin
 Ciencia da Computacao
-Alfredo Marcondes 
-Benak 
+Alfredo Marcondes
+Benak
 Estrada Municipal
 Sao Paulo
 3
@@ -17,6 +17,9 @@ Sei la
 Estrada Teste
 Sao Paulo
 545
+03
+08
+2002
 
 A
 Thales Jorge 

@@ -25,19 +25,21 @@ void recuperarDadosAlunos(TpDescritorA &Desc, FILE *ptrArqMat){
 	AdcionarAlunos(Desc,Reg);
 }
 
-void recuperarDadosMaterias(TpDescritorM &DescM, TpDescritorA &Desc,FILE *ptrArq){
+void recuperarDadosMaterias(TpDescritorM &DescM, TpDescritorA &Desc,FILE *ptrArqMat){
 	TpMateria Reg;
 	TpAlunos *listaAlunos;
-	
-	fscanf(ptrArq,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
+
+	fscanf(ptrArqMat,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
 
 	listaAlunos = Desc.Inicio; 
-	while(strcmp(listaAlunos -> Nome,Reg.Nome) != 0) {
+
+	while(strcmp(listaAlunos->Nome,Reg.Nome) != 0) {
 		listaAlunos = listaAlunos -> Prox;
 	}
-	while(!feof(ptrArq)){
+		
+	while(!feof(ptrArqMat)){
 		AdcionarMaterias(Reg,DescM);
-		fscanf(ptrArq,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
+		fscanf(ptrArqMat,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
 	}
 	AdcionarMaterias(Reg,DescM);
 }
@@ -49,7 +51,8 @@ void verificarArquivo(TpDescritorA &Desc){
 	TpDescritorM DescM;
 
 	ptrArq = fopen("Alunos.txt","r");
-	if(ptrArq == NULL) {
+	
+	if(ptrArq == NULL){
 		fclose(ptrArq);
 		ptrArq = fopen("Alunos.txt","w");
 	}
@@ -68,6 +71,7 @@ void verificarArquivo(TpDescritorA &Desc){
 		recuperarDadosMaterias(listaAlunos -> DescM, Desc, ptrArq);		
 	}
 	fclose(ptrArq);
+		
 } 
 
 void guadarDados(TpDescritorA &Desc){
@@ -292,7 +296,7 @@ int main(void){
 				getNome(Reg);
 				while(strcmp(BuscarAlunos(Reg.Nome,DescA).Nome,Reg.Nome)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
-				}
+				}strcpy(ListaM.Nome,Reg.Nome);
 				Lista = DescA.Inicio;
 				while(strcmp(Lista->Nome,Reg.Nome) != 0) {
 					Lista = Lista -> Prox;

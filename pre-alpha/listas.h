@@ -456,7 +456,7 @@ TpMateria getNota2(TpMateria &Reg){
 
 TpMateria getFrequencia(TpMateria &Reg){
 	printf("Digite a frequencia: ");
-	scanf("%f", &Reg.Frequencia);
+	scanf("%d", &Reg.Frequencia);
 	return Reg;
 }
 
