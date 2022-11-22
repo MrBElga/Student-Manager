@@ -333,6 +333,7 @@ int main(void){
 			break;
 			case 'G':
 				system("cls");
+				printf("## MATERIAS ##");
 				ExibirMaterias(DescA);
 			break;
 			case 'H':
