@@ -14,6 +14,13 @@ char alunoValido(char Nome[], TpDescritorA Desc) {
 	return 1;
 }
 
+char notaValida(char Nome[], TpDescritorM Desc) {
+	if(strcmp(BuscarNotas(Desc,Nome).Materia,Nome) == 0) {
+		return 0;
+	}
+	return 1;
+}
+
 void recuperarDadosAlunos(TpDescritorA &Desc, FILE *ptrArqMat){
 	TpAlunos Reg;
 
@@ -184,7 +191,7 @@ int main(void){
 				system("cls");
 				printf("\n## CADASTRO DE ALUNOS ##\n");
 				getNome(Reg);
-				while(strcmp(BuscarAlunos(Reg.Nome,DescA).Nome,Reg.Nome)==0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
+				while(alunoValido(Reg.Nome,DescA)==0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
 				getCurso(Reg);
@@ -199,25 +206,25 @@ int main(void){
 			case 'B':
 				system("cls");
 				getNome(Reg);
-				while(strcmp(BuscarAlunos(Reg.Nome,DescA).Nome,Reg.Nome)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
+				while(alunoValido(Reg.Nome,DescA)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
-				ExcluirAlunos(aux,DescA);
+				ExcluirAlunos(Reg.Nome,DescA);
 			break;
 			case 'C':
 				system("cls");
 				printf("## CONSULTA ##\n");
 				getNome(Reg);
-				while(strcmp(BuscarAlunos(Reg.Nome,DescA).Nome,Reg.Nome)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
+				while(alunoValido(Reg.Nome,DescA)!=0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
-				ConsultarAluno(DescA,aux);
+				ConsultarAluno(DescA,Reg.Nome);
 			break;
 			case 'D':
 				system("cls");
 				printf("## ALTERAR ##\n");
 				getNome(Reg);
-				while(strcmp(BuscarAlunos(Reg.Nome,DescA).Nome,Reg.Nome)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
+				while(alunoValido(Reg.Nome,DescA)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
 					system("cls");
@@ -314,7 +321,7 @@ int main(void){
 				system("cls");
 				printf("## CADASTRAR MATERIAS ##\n");
 				getNome(Reg);
-				while(strcmp(BuscarAlunos(Reg.Nome,DescA).Nome,Reg.Nome)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
+				while(alunoValido(Reg.Nome,DescA)!=0|| strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}strcpy(ListaM.Nome,Reg.Nome);
 				Lista = DescA.Inicio;
@@ -322,7 +329,7 @@ int main(void){
 					Lista = Lista -> Prox;
 				}
 				getMateria(ListaM);
-				while(strcmp(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,ListaM.Materia)==0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
+				while(notaValida(ListaM.Materia,Lista->DescM)==0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
 					getMateria(ListaM);
 				}
 				getNota0(ListaM);
@@ -340,12 +347,12 @@ int main(void){
 				system("cls");
 				printf("## ALTERAR MATERIAS ##\n");
 				getNome(Reg);
-				while(strcmp(BuscarAlunos(Reg.Nome,DescA).Nome,Reg.Nome)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
+				while(alunoValido(Reg.Nome,DescA)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
 
 				getMateria(ListaM);
-				while(strcmp(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,ListaM.Materia)!=0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
+				while(notaValida(ListaM.Materia,Lista->DescM)!=0  || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
 					getMateria(ListaM);
 				}
 				RegM = BuscarNotas(Lista->DescM,ListaM.Materia);
@@ -391,7 +398,7 @@ int main(void){
 			case 'I':
 				system("cls");
 				getNome(Reg);
-				while(strcmp(BuscarAlunos(Reg.Nome,DescA).Nome,Reg.Nome)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
+				while(alunoValido(Reg.Nome,DescA)!=0|| strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
 				ConsultarMateria(DescA,ListaA.Nome);
@@ -400,11 +407,11 @@ int main(void){
 				system("cls");
 				printf("## EXCLUIR MATERIA ##\n");
 				getNome(Reg);
-				while(strcmp(BuscarAlunos(Reg.Nome,DescA).Nome,Reg.Nome)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
+				while(alunoValido(Reg.Nome,DescA)!=0|| strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
 				getMateria(ListaM);
-				while(strcmp(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,ListaM.Materia)!=0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
+				while(notaValida(ListaM.Materia,Lista->DescM)!=0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
 					getMateria(ListaM);
 				}
 
