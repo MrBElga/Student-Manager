@@ -48,11 +48,26 @@ void recuperarDadosMaterias(TpDescritorM &DescM, TpDescritorA &Desc,FILE *ptrArq
 
 }
 
+int getSize(char nome[])
+{
+    FILE *file = fopen(nome, "r");
+
+    if(file == NULL)
+        return 0;
+
+    fseek(file, 0, SEEK_END);
+    int size = ftell(file);
+    fclose(file);
+
+    return size;
+}
+
 void verificarArquivo(TpDescritorA &Desc){
 	FILE *ptrArq;
 	TpAlunos *listaAlunos;
 	TpMateria *listaMaterias;
 	TpDescritorM DescM;
+	int size = 0;
 
 	ptrArq = fopen("Alunos.txt","r");
 	
@@ -60,22 +75,23 @@ void verificarArquivo(TpDescritorA &Desc){
 		fclose(ptrArq);
 		ptrArq = fopen("Alunos.txt","w");
 	}
-	else{
+	else if(getSize("Alunos.txt") != 0){
 		recuperarDadosAlunos(Desc, ptrArq);
-	}
-	fclose(ptrArq);
-	
-	listaAlunos = Desc.Inicio;
-	ptrArq = fopen("Materias.txt","r");
-	if(ptrArq == NULL){		
 		fclose(ptrArq);
-		ptrArq = fopen("Materias.txt","w");
+	
+		listaAlunos = Desc.Inicio;
+
+		ptrArq = fopen("Materias.txt","r");
+	
+		if(ptrArq == NULL){		
+			fclose(ptrArq);
+			ptrArq = fopen("Materias.txt","w");
+		}
+		else if(getSize("Materias.txt") != 0){
+			recuperarDadosMaterias(listaAlunos -> DescM, Desc, ptrArq);		
+		}
 	}
-	else{
-		recuperarDadosMaterias(listaAlunos -> DescM, Desc, ptrArq);		
-	}
-	fclose(ptrArq);
-		
+	fclose(ptrArq);	
 } 
 
 void guadarDados(TpDescritorA &Desc){
