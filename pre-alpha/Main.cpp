@@ -35,7 +35,6 @@ void recuperarDadosMaterias(TpDescritorM &DescM, TpDescritorA &Desc,FILE *ptrArq
 		while(strcmp(listaAlunos->Nome,Reg.Nome) != 0) {
 			listaAlunos = listaAlunos -> Prox;
 		}
-	
 		AdcionarMaterias(Reg,listaAlunos->DescM);
 		fscanf(ptrArqMat,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
 	}
@@ -44,8 +43,6 @@ void recuperarDadosMaterias(TpDescritorM &DescM, TpDescritorA &Desc,FILE *ptrArq
 		listaAlunos = listaAlunos -> Prox;
 	}
 	AdcionarMaterias(Reg,listaAlunos->DescM);
-	
-
 }
 
 int getSize(char nome[])
