@@ -32,8 +32,8 @@ void recuperarDadosAlunos(TpDescritorA &Desc, FILE *ptrArqMat){
 	AdcionarAlunos(Desc,Reg);
 }
 
-void recuperarDadosMaterias(TpDescritorM &DescM, TpDescritorA &Desc,FILE *ptrArqMat){
-	TpMateria Reg,*Lista;
+void recuperarDadosMaterias(TpDescritorA &Desc,FILE *ptrArqMat){
+	TpMateria Reg;
 	TpAlunos *listaAlunos;
 
 	fscanf(ptrArqMat,"%[^%;];%[^;];%f;%f;%d\n",&Reg.Nome,&Reg.Materia,&Reg.Nota0,&Reg.Nota2,&Reg.Frequencia);
@@ -69,9 +69,6 @@ int getSize(char nome[])
 void verificarArquivo(TpDescritorA &Desc){
 	FILE *ptrArq;
 	TpAlunos *listaAlunos;
-	TpMateria *listaMaterias;
-	TpDescritorM DescM;
-	int size = 0;
 
 	ptrArq = fopen("Alunos.txt","r");
 	
@@ -92,7 +89,7 @@ void verificarArquivo(TpDescritorA &Desc){
 			ptrArq = fopen("Materias.txt","w");
 		}
 		else if(getSize("Materias.txt") != 0){
-			recuperarDadosMaterias(listaAlunos -> DescM, Desc, ptrArq);		
+			recuperarDadosMaterias(Desc, ptrArq);		
 		}
 	}
 	fclose(ptrArq);	
