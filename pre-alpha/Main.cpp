@@ -119,15 +119,13 @@ char menualt(){
 	system("cls");
 	printf("[A] - 	ALTERAR NOME\n");
 	printf("[B] - 	ALTERAR CURSO\n");
-	printf("[C] - 	ALTERAR CIDADE\n");
+	printf("[C] -  	ALTERAR RUA\n");
 	printf("[D] -  	ALTERAR BAIRRO \n");
-	printf("[E] -  	ALTERAR RUA\n");
+	printf("[E] - 	ALTERAR CIDADE\n");
 	printf("[F] -  	ALTERAR ESTADO\n");
 	printf("[G] -  	ALTERAR ENDERECO\n");
-	printf("[H] - 	ALTERAR DATA\n");
 	printf("OPCAO: ");
 	return toupper(getch());
-
 }
 
 char menualtM(){
@@ -179,9 +177,7 @@ int main(void){
 	
 	verificarArquivo(DescA);
 	do{
-		
 		op = menu();
-		
 		switch(op)
 		{	
 			case 'A': 
@@ -231,10 +227,8 @@ int main(void){
 					switch(op2)
 					{
 						case 'A':
-							printf("Digite o Novo Nome do Aluno: ");
-							fflush(stdin);
-							gets(aux2);
-							strcpy(ListaA.Nome,aux2);
+							printf("Digite o Novo Nome do Aluno: ");fflush(stdin);
+							gets(ListaA.Nome);
 							strcpy(ListaA.Curso,Reg.Curso);
 							strcpy(ListaA.Cidade,Reg.Cidade);
 							strcpy(ListaA.Bairro,Reg.Bairro);
@@ -244,9 +238,8 @@ int main(void){
 						break;
 						case 'B':
 							strcpy(ListaA.Nome,Reg.Nome);
-							printf("\nDigite o Novo Nome do Curso: ");
-							gets(aux2);
-							strcpy(ListaA.Curso,aux2);
+							printf("\nDigite o Novo Nome do Curso: ");fflush(stdin);
+							gets(ListaA.Curso);
 							strcpy(ListaA.Cidade,Reg.Cidade);
 							strcpy(ListaA.Bairro,Reg.Bairro);
 							strcpy(ListaA.Rua,Reg.Rua);
@@ -256,9 +249,8 @@ int main(void){
 						case 'C':
 							strcpy(ListaA.Nome,Reg.Nome);
 							strcpy(ListaA.Curso,Reg.Curso);
-							printf("\nDigite o Novo Nome da cidade: ");
-							gets(aux2);
-							strcpy(ListaA.Cidade,aux2);
+							printf("\nDigite o Novo Nome da cidade: ");fflush(stdin);
+							gets(ListaA.Cidade);
 							strcpy(ListaA.Bairro,Reg.Bairro);
 							strcpy(ListaA.Rua,Reg.Rua);
 							strcpy(ListaA.Estado,Reg.Estado);
@@ -268,9 +260,8 @@ int main(void){
 							strcpy(ListaA.Nome,Reg.Nome);
 							strcpy(ListaA.Curso,Reg.Curso);
 							strcpy(ListaA.Cidade,Reg.Cidade);
-							printf("\nDigite o Novo Nome do Bairro: ");
-							gets(aux2);
-							strcpy(ListaA.Bairro,aux2);
+							printf("\nDigite o Novo Nome do Bairro: ");fflush(stdin);
+							gets(ListaA.Bairro);
 							strcpy(ListaA.Rua,Reg.Rua);
 							strcpy(ListaA.Estado,Reg.Estado);
 							ListaA.Endereco = Reg.Endereco;
@@ -280,9 +271,8 @@ int main(void){
 							strcpy(ListaA.Curso,Reg.Curso);
 							strcpy(ListaA.Cidade,Reg.Cidade);
 							strcpy(ListaA.Bairro,Reg.Bairro);
-							printf("\nDigite o Novo Nome da Rua: ");
-							gets(aux2);
-							strcpy(ListaA.Rua,aux2);
+							printf("\nDigite o Novo Nome da Rua: ");fflush(stdin);
+							gets(ListaA.Rua);
 							strcpy(ListaA.Estado,Reg.Estado);
 							ListaA.Endereco = Reg.Endereco;
 						break;					
@@ -292,12 +282,11 @@ int main(void){
 							strcpy(ListaA.Cidade,Reg.Cidade);
 							strcpy(ListaA.Bairro,Reg.Bairro);
 							strcpy(ListaA.Rua,Reg.Rua);
-							printf("\nDigite o Novo Nome do Estado: ");
-							gets(aux2);
-							strcpy(ListaA.Estado,aux2);
+							printf("\nDigite o Novo Nome do Estado: ");fflush(stdin);
+							gets(ListaA.Estado);
 							ListaA.Endereco = Reg.Endereco;
 						break;		
-						case 'H':
+						case 'G':
 							strcpy(ListaA.Nome,Reg.Nome);
 							strcpy(ListaA.Curso,Reg.Curso);
 							strcpy(ListaA.Cidade,Reg.Cidade);
@@ -308,7 +297,8 @@ int main(void){
 							scanf("%d",&ListaA.Endereco);
 						break;				
 					}
-				AlterarAluno(aux,DescA,ListaA);
+				
+				AlterarAluno(Reg.Nome,DescA,ListaA);
 			break;
 			case 'E':
 				system("cls");
@@ -394,11 +384,12 @@ int main(void){
 			break;
 			case 'I':
 				system("cls");
+				printf("## CONSULTAR ##\n");
 				getNome(Reg);
 				while(alunoValido(Reg.Nome,DescA)!=0|| strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
-				ConsultarMateria(DescA,ListaA.Nome);
+				ConsultarMateria(DescA,Reg.Nome);
 			break;
 			case 'J':
 				system("cls");
@@ -412,7 +403,7 @@ int main(void){
 					getMateria(ListaM);
 				}
 
-				ExcluirMateria(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,Lista->DescM);
+				ExcluirMateria(ListaM.Materia,Lista->DescM);
 			break;
 			case 'K':
 				system("cls");

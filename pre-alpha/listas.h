@@ -202,16 +202,12 @@ void AlterarAluno(char nome[], TpDescritorA &Desc, TpAlunos Alunos) {
 	strcpy(lista -> Rua, Alunos.Rua);
 	strcpy(lista -> Estado, Alunos.Estado);
     lista->Endereco = Alunos.Endereco;
-	lista->Dia = Alunos.Dia;
-	lista->Mes = Alunos.Mes;
-	lista->Ano = Alunos.Ano;
 }
 
 //Consultar Alunos  
 void ConsultarAluno(TpDescritorA Desc, char Nome[]){
     TpAlunos *Lista = Desc.Inicio;
 
-    system("cls");
     while(strcmp(Nome,Lista -> Nome)!=0) 
         Lista = Lista -> Prox;
     if(strcmp(Nome,Lista -> Nome)==0){
@@ -222,7 +218,6 @@ void ConsultarAluno(TpDescritorA Desc, char Nome[]){
         printf("%s\n",Lista -> Cidade);
         printf("%d\n",Lista -> Endereco);
 	 	printf("%d/%d/%d\n\n",Lista -> Dia, Lista -> Mes, Lista -> Ano);
-	;
     }
     else
         printf("\nAluno nao encontrado");
@@ -239,6 +234,7 @@ void exibirAlunos(TpDescritorA Desc) {
         printf("%s\n",lista -> Rua);
         printf("%s\n",lista -> Bairro);
         printf("%s\n",lista -> Cidade);
+		printf("%s\n",lista ->Estado);
         printf("%d\n",lista -> Endereco);
 		printf("%d/%d/%d\n\n",lista -> Dia, lista -> Mes, lista -> Ano);
 		lista = lista -> Prox;
@@ -311,17 +307,11 @@ void ExcluirMateria(char nome[], TpDescritorM &DescM){
 		delete(aux);
 	}
 	else if(strcmp(DescM.Fim -> Materia,nome) == 0) {//fim
-		ant = DescM.Fim; 
 		ant -> prox = NULL;
 		DescM.Fim = ant;
 		delete(aux);
 	}
 	else {//meio
-		aux = DescM.Inicio -> prox; 
-		
-		while(strcmp(aux -> Materia,nome) != 0) {
-			aux = aux -> prox;
-		}
 		ant->prox = aux->prox;
 		delete(aux);	
     }
@@ -347,10 +337,10 @@ void ConsultarMateria(TpDescritorA Desc, char Nome[]){
 
     while(strcmp(Nome,Lista -> Nome)!=0) 
         Lista = Lista -> Prox;
-    ListaN = Lista->ListaNotas;
+    ListaN = Lista->DescM.Inicio;
     if(ListaN != NULL){
         while(ListaN != NULL){
-            printf("-------%s-------\n",ListaN -> Materia);
+            printf("-------%s-------\n",ListaN ->Materia);
             printf("%.2f\n",ListaN -> Nota0);
             printf("%.2f\n",ListaN -> Nota2);
             printf("%d%\n",ListaN -> Frequencia);
@@ -358,7 +348,7 @@ void ConsultarMateria(TpDescritorA Desc, char Nome[]){
         }
     }
     else
-        printf("\nAluno nao encontrado");
+        printf("\nMaterias nao encontradas");
     getch();
 }
 
