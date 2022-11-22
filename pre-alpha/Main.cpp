@@ -383,6 +383,7 @@ int main(void){
 				AlterarMateria(RegM.Materia,Lista->DescM,ListaM);
 			break;
 			case 'I':
+			
 				system("cls");
 				printf("## CONSULTAR ##\n");
 				getNome(Reg);
