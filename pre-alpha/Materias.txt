@@ -2,3 +2,5 @@ Ana Laura Angelosi Cruz;ATPI;8.00;4.00;58
 Ana Laura Angelosi Cruz;ATPII;8.00;4.00;58
 Daniel Elias Fonseca Rumin;ATPI;10.00;10.00;100
 Daniel Elias Fonseca Rumin;ATPII;9.00;8.00;80
+Joao;ATPI;5.00;5.00;50
+Joao;AP;4.00;4.00;10

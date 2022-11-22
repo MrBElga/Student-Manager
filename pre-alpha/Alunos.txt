@@ -1,2 +1,3 @@
 Ana Laura Angelosi Cruz;Ciencia da Computacao;Martinopolis;Sei la;Estrada Teste;Sao Paulo;545;3;8;2002
 Daniel Elias Fonseca Rumin;Ciencia da Computacao;Alfredo Marcondes;Benak;Estrada Municipal;Sao Paulo;3;6;9;2001
+Joao;teste;teste;teste;teste;teste;10;10;10;2010

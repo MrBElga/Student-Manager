@@ -143,6 +143,9 @@ char menu (){
 	printf("########## RELATORIOS ########## \n");
 	printf("[K] -  	NOTAS DE UMA MATERIA\n");
 	printf("[L] -  	ALUNOS COM REPROVAS\n");
+	printf("##################################\n");
+	printf("[M] -  	STATUS DE APROVACAO/REPROVACAO DE CADA ALUNO\n");
+	printf("[N] -  	ALUNOS REPROVADOS POR FREQUENCIA\n");
 	printf("----------------------------------\n");
 	printf("[ESC] - FINALIZAR\n\n");
 	printf("OPCAO: ");
@@ -399,11 +402,24 @@ int main(void){
 				RelatorioM(DescA,ListaM.Materia);
 				getch();
 			break;
-			case 'L':system("cls");
+			case 'L':
+				system("cls");
+				printf("### Relatorio ###\n\n");
+				RelatorioReprovas(DescA);
+				getch();
+			break;
+			case 'M':
+				system("cls");
 				printf("### Relatorio ###\n\n");
 				Relatorio(DescA);
 				getch();
-				break;
+			break;
+			case 'N':
+				system("cls");
+				printf("### Relatorio ###\n\n");
+				RelatorioF(DescA);
+				getch();
+			break;
 		}
 	}while(op!=27);
 

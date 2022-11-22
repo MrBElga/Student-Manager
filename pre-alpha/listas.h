@@ -460,7 +460,7 @@ TpMateria getFrequencia(TpMateria &Reg){
 	return Reg;
 }
 
- void Relatorio(TpDescritorA Desc){
+void Relatorio(TpDescritorA Desc){
     TpAlunos *Lista = Desc.Inicio;
     TpMateria *ListaN;
 	float media=0;
@@ -492,8 +492,39 @@ TpMateria getFrequencia(TpMateria &Reg){
     }
     getch();
  }
+
+void RelatorioReprovas(TpDescritorA Desc){
+    TpAlunos *Lista = Desc.Inicio;
+    TpMateria *ListaN;
+	float media=0,cont=0;
+	
+    while(Lista != NULL){
+      
+        
+        ListaN = Lista->DescM.Inicio;
+        while(ListaN != NULL){
+        	if(strcmp(ListaN->Nome,Lista->Nome)==0){
+				media = (ListaN->Nota0 + ListaN->Nota2)/2;
+				if(media<6 ){
+					if(cont==0)
+						printf("-----Aluno: %s----- \n", Lista -> Nome);
+					printf("%s\n",ListaN->Materia);
+					printf("%.2f \n",media);
+					printf("Reprovado\n\n");
+					cont++;
+				}
+	          
+				media = 0;
+			}
+			ListaN = ListaN->prox;
+        }
+		cont =0;
+        Lista = Lista->Prox;
+    }
+    getch();
+ }
  
- void RelatorioM(TpDescritorA Desc, char Mat[]){
+void RelatorioM(TpDescritorA Desc, char Mat[]){
  	    TpAlunos *Lista = Desc.Inicio;
  	    TpMateria *ListaN;
  	    while(Lista != NULL){
@@ -508,4 +539,33 @@ TpMateria getFrequencia(TpMateria &Reg){
  	    	}
  	    	Lista = Lista->Prox;
  	    }
+}
+
+  void RelatorioF(TpDescritorA Desc){
+    TpAlunos *Lista = Desc.Inicio;
+    TpMateria *ListaN;
+	float cont=0;
+	
+    while(Lista != NULL){
+      
+        
+        ListaN = Lista->DescM.Inicio;
+        while(ListaN != NULL){
+        	if(strcmp(ListaN->Nome,Lista->Nome)==0){
+				
+				if(ListaN->Frequencia<80){
+					if(cont==0)
+						printf("-----Aluno: %s----- \n", Lista -> Nome);
+					printf("%s\n",ListaN->Materia);
+					printf("%d% \n",ListaN->Frequencia);
+					printf("Reprovado\n\n");
+					cont++;
+				}
+			}
+			ListaN = ListaN->prox;
+        }
+		cont =0;
+        Lista = Lista->Prox;
+    }
+    getch();
  }
