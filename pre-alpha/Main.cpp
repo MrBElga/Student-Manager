@@ -1,3 +1,6 @@
+//Daniel Elias Fonseca Rumin 102113149
+//Thales Jorge Da silva		 102012253
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "listas.h"
@@ -15,7 +18,9 @@ char alunoValido(char Nome[], TpDescritorA Desc) {
 }
 
 char notaValida(char Nome[], TpDescritorM Desc) {
+	
 	if(strcmp(BuscarNotas(Desc,Nome).Materia,Nome) == 0) {
+		
 		return 0;
 	}
 	return 1;
@@ -149,11 +154,11 @@ char menu (){
 	printf("[E] -  	EXIBIR ALUNOS\n");
 	printf("----------------------------------\n");
 	printf("########## MATERIAS ########## \n");
-	printf("[F] -  	CADASTRAS NOTA\n");
-	printf("[G] -  	EXIBIR NOTAS\n");
+	printf("[F] -  	CADASTRAS MATERIA\n");
+	printf("[G] -  	EXIBIR MATERIA\n");
 	printf("[H] - 	ALTERAR NOTAS DE UM ALUNO\n");
 	printf("[I] -  	CONSULTAR NOTAS DE UM ALUNO\n");
-	printf("[J] - 	EXCLUIR NOTAS\n");
+	printf("[J] - 	EXCLUIR MATERIA DE UM ALUNO\n");
 	printf("----------------------------------\n");
 	printf("########## RELATORIOS ########## \n");
 	printf("[K] -  	NOTAS DE UMA MATERIA\n");
@@ -161,6 +166,7 @@ char menu (){
 	printf("##################################\n");
 	printf("[M] -  	STATUS DE APROVACAO/REPROVACAO DE CADA ALUNO\n");
 	printf("[N] -  	ALUNOS REPROVADOS POR FREQUENCIA\n");
+	printf("[O] -   EXCLUIR MATERIA\n");
 	printf("----------------------------------\n");
 	printf("[ESC] - FINALIZAR\n\n");
 	printf("OPCAO: ");
@@ -169,8 +175,9 @@ char menu (){
 
 int main(void){
 	TpAlunos ListaA,*Lista,Reg;
-	TpMateria ListaM,RegM;
+	TpMateria ListaM,RegM,*auxP;
 	TpDescritorA DescA;
+	TpDescritorM DescM;
 
 	char op,op2,aux[30],aux2[30],aux3[20];
 	IniciarDescA(DescA);
@@ -316,8 +323,12 @@ int main(void){
 					Lista = Lista -> Prox;
 				}
 				getMateria(ListaM);
-				while(notaValida(ListaM.Materia,Lista->DescM)==0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
+				while(strcmp(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,ListaM.Materia)==0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
 					getMateria(ListaM);
+					Lista = DescA.Inicio;
+					while(strcmp(Lista->Nome,Reg.Nome) != 0) {
+						Lista = Lista -> Prox;
+					}
 				}
 				getNota0(ListaM);
 				getNota2(ListaM);
@@ -337,10 +348,17 @@ int main(void){
 				while(alunoValido(Reg.Nome,DescA)!=0 || strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
-
+				Lista = DescA.Inicio;
+				while(Lista!=NULL && strcmp(Lista->Nome,Reg.Nome)!=0){
+					Lista = Lista->Prox;
+				}
 				getMateria(ListaM);
-				while(notaValida(ListaM.Materia,Lista->DescM)!=0  || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
+				while(strcmp(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,ListaM.Materia)!=0  || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
 					getMateria(ListaM);
+					Lista = DescA.Inicio;
+					while(Lista!=NULL && strcmp(Lista->Nome,Reg.Nome)!=0){
+						Lista = Lista->Prox;
+					}
 				}
 				RegM = BuscarNotas(Lista->DescM,ListaM.Materia);
 				system("cls");
@@ -398,9 +416,17 @@ int main(void){
 				while(alunoValido(Reg.Nome,DescA)!=0|| strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
+
+				while(Lista!=NULL && strcmp(Lista->Nome,Reg.Nome)!=0){
+					Lista = Lista->Prox;
+				}
 				getMateria(ListaM);
-				while(notaValida(ListaM.Materia,Lista->DescM)!=0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
+				while(strcmp(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,ListaM.Materia)!=0  || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
 					getMateria(ListaM);
+					Lista = DescA.Inicio;
+					while(Lista!=NULL && strcmp(Lista->Nome,Reg.Nome)!=0){
+						Lista = Lista->Prox;
+					}
 				}
 
 				ExcluirMateria(ListaM.Materia,Lista->DescM);
@@ -428,6 +454,16 @@ int main(void){
 				printf("### Relatorio ###\n\n");
 				RelatorioF(DescA);
 				getch();
+			break;
+			case 'O':
+				system("cls");
+				printf("### EXCLUIR ###\n\n");
+				getMateria(ListaM);
+				while(strcmp(BuscarNotas2(DescA,ListaM.Materia).Materia,ListaM.Materia)!=0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
+					getMateria(ListaM);
+				}
+				excluirDeTodos(DescA,ListaM.Materia);
+				
 			break;
 		}
 	}while(op!=27);

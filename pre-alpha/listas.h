@@ -245,15 +245,40 @@ void exibirAlunos(TpDescritorA Desc) {
 //Materia
 //BUSCA Materia
 TpMateria BuscarNotas(TpDescritorM Desc, char Materia[]) {
-	TpMateria reg, *lista = Desc.Inicio;
+	TpMateria reg, *lista;
+	lista = Desc.Inicio;
 	
 	strcpy(reg.Materia, "");
-	while(lista != NULL && strcmp(Materia,lista->Materia) != 0) {
+
+	while(lista != NULL && strcmp(lista->Materia,Materia)!=0) {
 		lista = lista -> prox;
 	}
+	
 	if(lista != NULL) {
 		reg = *lista;
 	}
+	
+	return reg;
+}
+
+TpMateria BuscarNotas2(TpDescritorA Desc, char Materia[]) {
+	TpMateria reg, *lista;
+	TpAlunos *Lista = Desc.Inicio;
+	
+	
+	strcpy(reg.Materia, "");
+	while(Lista != NULL){
+		lista = Lista->DescM.Inicio;
+		while(lista != NULL && strcmp(lista->Materia,Materia)!=0) {
+			lista = lista -> prox;
+		}
+		if(lista != NULL) {
+			reg = *lista;
+		}
+		Lista = Lista->Prox;
+	}	
+		
+	
 	return reg;
 }
 
@@ -350,6 +375,24 @@ void ConsultarMateria(TpDescritorA Desc, char Nome[]){
     else
         printf("\nMaterias nao encontradas");
     getch();
+}
+
+void excluirDeTodos(TpDescritorA &Desc, char Mat[]){
+	TpAlunos *ListaA = Desc.Inicio;
+	TpMateria *ListaM;
+
+	while(ListaA != NULL){
+	
+			ListaM = ListaA ->DescM.Inicio;
+		while(ListaM != NULL){
+			
+			if(strcmp(ListaM->Materia,Mat)==0)
+				ExcluirMateria(ListaM->Materia,ListaA->DescM);
+			ListaM = ListaM->prox;
+		}
+		ListaA = ListaA ->Prox;
+	}
+
 }
 
 //Exibir Materias 
@@ -531,7 +574,7 @@ void RelatorioM(TpDescritorA Desc, char Mat[]){
  	    }
 }
 
-  void RelatorioF(TpDescritorA Desc){
+void RelatorioF(TpDescritorA Desc){
     TpAlunos *Lista = Desc.Inicio;
     TpMateria *ListaN;
 	float cont=0;
