@@ -567,11 +567,13 @@ void RelatorioM(TpDescritorA Desc, char Mat[]){
  	    			printf("------%s------\n",ListaN->Nome);
  	    			printf("%.2f\n",ListaN->Nota0);
  	    			printf("%.2f\n\n",ListaN->Nota2);
+ 	    		
  	    		}
  	    		ListaN = ListaN->prox;
  	    	}
  	    	Lista = Lista->Prox;
  	    }
+ 	  
 }
 
 void RelatorioF(TpDescritorA Desc){

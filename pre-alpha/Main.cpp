@@ -74,14 +74,16 @@ int getSize(char nome[])
 void verificarArquivo(TpDescritorA &Desc){
 	FILE *ptrArq;
 	TpAlunos *listaAlunos;
-
+	char nome1[20],nome2[20];
+	strcpy(nome1,"Alunos.txt");
+	strcpy(nome2,"Materias.txt");
 	ptrArq = fopen("Alunos.txt","r");
 	
 	if(ptrArq == NULL){
 		fclose(ptrArq);
 		ptrArq = fopen("Alunos.txt","w");
 	}
-	else if(getSize("Alunos.txt") != 0){
+	else if(getSize(nome1) != 0){
 		recuperarDadosAlunos(Desc, ptrArq);
 		fclose(ptrArq);
 	
@@ -93,7 +95,7 @@ void verificarArquivo(TpDescritorA &Desc){
 			fclose(ptrArq);
 			ptrArq = fopen("Materias.txt","w");
 		}
-		else if(getSize("Materias.txt") != 0){
+		else if(getSize(nome2) != 0){
 			recuperarDadosMaterias(Desc, ptrArq);		
 		}
 	}
@@ -317,7 +319,8 @@ int main(void){
 				getNome(Reg);
 				while(alunoValido(Reg.Nome,DescA)!=0|| strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
-				}strcpy(ListaM.Nome,Reg.Nome);
+				}
+				strcpy(ListaM.Nome,Reg.Nome);
 				Lista = DescA.Inicio;
 				while(strcmp(Lista->Nome,Reg.Nome) != 0) {
 					Lista = Lista -> Prox;
@@ -412,20 +415,21 @@ int main(void){
 			case 'J':
 				system("cls");
 				printf("## EXCLUIR MATERIA ##\n");
-				getNome(Reg);
+			getNome(Reg);
 				while(alunoValido(Reg.Nome,DescA)!=0|| strcmp(Reg.Nome," ")==0 || Reg.Nome[0]=='\0'){
 					getNome(Reg);
 				}
-
-				while(Lista!=NULL && strcmp(Lista->Nome,Reg.Nome)!=0){
-					Lista = Lista->Prox;
+				strcpy(ListaM.Nome,Reg.Nome);
+				Lista = DescA.Inicio;
+				while(strcmp(Lista->Nome,Reg.Nome) != 0) {
+					Lista = Lista -> Prox;
 				}
 				getMateria(ListaM);
-				while(strcmp(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,ListaM.Materia)!=0  || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
+				while(strcmp(BuscarNotas(Lista->DescM,ListaM.Materia).Materia,ListaM.Materia)!=0 || strcmp(ListaM.Materia," ")==0 || ListaM.Materia[0]=='\0'){
 					getMateria(ListaM);
 					Lista = DescA.Inicio;
-					while(Lista!=NULL && strcmp(Lista->Nome,Reg.Nome)!=0){
-						Lista = Lista->Prox;
+					while(strcmp(Lista->Nome,Reg.Nome) != 0) {
+						Lista = Lista -> Prox;
 					}
 				}
 
